@@ -1,0 +1,48 @@
+<div class="swiper">
+    <div class="swiper-wrapper">
+        <% images.forEach(function(image) { %>
+            <div class="swiper-slide">
+                <div class="relative">
+                    <div class="h-[780px]">
+                        <img class="w-full h-full" src="<%= image.url %>" alt="<%= image.alt %>" loading="lazy">
+                    </div>
+                </div>
+
+            </div>
+            <% }); %>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+<script>
+    const swiper = new Swiper('.swiper', {
+        // Cấu hình tùy chọn
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 1,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+      },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+</script>
