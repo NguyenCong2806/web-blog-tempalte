@@ -8,7 +8,12 @@ module.exports = {
     "./node_modules/flowbite/**/*.js" // Cần thiết để Flowbite hoạt động
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin') // Thêm plugin của Flowbite

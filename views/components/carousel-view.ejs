@@ -3,20 +3,23 @@
         <% images.forEach(function(image) { %>
             <div class="swiper-slide">
                 <div class="relative">
-                    <div class="h-[780px]">
-                        <img class="w-full h-full" src="<%= image.url %>" alt="<%= image.alt %>" loading="lazy">
+                    <!-- Responsive heights: mobile -> md -> large screens -->
+                    <div class="h-60 md:h-96 lg:h-[780px]">
+                        <img class="w-full h-full object-cover" src="<%= image.url %>" alt="<%= image.alt %>" loading="lazy">
                     </div>
                 </div>
 
             </div>
             <% }); %>
     </div>
+    <!-- Pagination (dots) -->
+    <div class="swiper-pagination"></div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
 </div>
 <script>
     const swiper = new Swiper('.swiper', {
-        // Cấu hình tùy chọn
+        // Responsive carousel options
         loop: true,
         autoplay: {
             delay: 5000,
@@ -24,25 +27,35 @@
         },
         pagination: {
             el: '.swiper-pagination',
+            clickable: true,
         },
-        breakpoints: {
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 20,
+        keyboard: {
+            enabled: true,
+            onlyInViewport: true,
         },
-        768: {
-          slidesPerView: 1,
-          spaceBetween: 40,
+        a11y: {
+            enabled: true,
         },
-        1024: {
-          slidesPerView: 1,
-          spaceBetween: 50,
-        },
-      },
+        watchOverflow: true,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        // keep a single slide visible but allow spacing adjustments per breakpoint if needed
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 12,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+            },
+            1024: {
+                slidesPerView: 1,
+                spaceBetween: 24,
+            },
+        }
     });
 
 </script>

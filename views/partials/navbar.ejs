@@ -1,42 +1,123 @@
-<div class="block">
-  <nav>
-    <ul class="flex justify-evenly flex-wrap gap-6 font-medium ">
-      <li class="">
-        <a href="/">HOME</a>
-      </li>
-      <li>
-        <a href="/">ABOUT</a>
-      </li>
-      <li class="group relative">
-        <a href="/">MAJOR</a>
-        <ul
-          class="absolute w-52 top-10  invisible transition-all duration-300 
-                translate-y-6 group-hover:visible group-hover:translate-y-0
-                text-left rounded-md shadow-md overflow-hidden z-20 bg-white"
-        >
-          <li class="px-2 py-3 transition-all duration-300 hover:pl-3 hover:bg-red-600 hover:text-slate-50">
-            <a href="/">Information technology</a>
-          </li>
-          <li class="px-2 py-3 transition-all duration-300 hover:pl-3 hover:bg-red-600 hover:text-slate-50">
-            <a href="/">Accountant</a>
-          </li>
-          <li class="px-2 py-3 transition-all duration-300 hover:pl-3 hover:bg-red-600 hover:text-slate-50">
-            <a href="/">Business administration</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="/">NEWS</a>
-      </li>
-      <li>
-        <a href="/">SCHEDULE</a>
-      </li>
-      <li>
-        <a href="/">CONTACT</a>
-      </li>
-      <li>
-        <a href="/">REGISTER</a>
-      </li>
-    </ul>
+<div class="w-full">
+  <nav class="container mx-auto px-4 py-3">
+    <div class="flex items-center justify-between">
+      <!-- Brand / Logo -->
+      <div class="text-lg font-bold navbar-brand">
+        <a href="/" class="flex items-center">
+          <!-- larger logo: h-12 on mobile, h-14 on md+ -->
+          <img src="/image/logo.png" alt="Site logo" class="h-12 md:h-14 w-auto" />
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="nav-toggle" aria-controls="nav-menu" aria-expanded="false"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md focus:outline-none">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
+      <!-- Desktop / Mobile menu -->
+      <ul id="nav-menu"
+        class="hidden md:flex md:justify-evenly md:gap-6 md:items-center font-medium w-full md:w-auto mt-3 md:mt-0">
+        <li>
+          <a href="/">HOME</a>
+        </li>
+        <li>
+          <a href="/">ABOUT</a>
+        </li>
+
+        <!-- Major with dropdown (desktop absolute, mobile collapsible) -->
+        <li class="group relative">
+          <div class="flex items-center space-x-2">
+            <a href="/" class="font-medium">MAJOR</a>
+            <!-- chevron to expand/collapse submenu (visible on mobile and desktop) -->
+            <button class="inline-flex items-center p-1 cursor-pointer md:inline-flex" id="major-toggle" aria-controls="major-submenu" aria-expanded="false" aria-label="Toggle Majors submenu">
+              <svg class="h-5 w-5 transform transition-transform duration-200 md:group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Desktop dropdown (absolute, appears on hover) -->
+          <ul id="major-dropdown"
+            class="hidden md:block md:absolute md:w-56 md:top-12 md:invisible md:transition-all md:duration-200 md:translate-y-3 md:group-hover:visible md:group-hover:translate-y-0 md:text-left md:rounded-lg md:shadow-lg md:overflow-hidden md:z-20 md:bg-white"
+            aria-hidden="true">
+            <li class="px-4 py-3 transition-colors duration-150 hover:bg-red-600 hover:text-white">
+              <a href="/">Information technology</a>
+            </li>
+            <li class="px-4 py-3 transition-colors duration-150 hover:bg-red-600 hover:text-white">
+              <a href="/">Accountant</a>
+            </li>
+            <li class="px-4 py-3 transition-colors duration-150 hover:bg-red-600 hover:text-white">
+              <a href="/">Business administration</a>
+            </li>
+          </ul>
+
+          <!-- (mobile submenu moved to off-canvas panel) -->
+        </li>
+
+        <li>
+          <a href="/">NEWS</a>
+        </li>
+        <li>
+          <a href="/">SCHEDULE</a>
+        </li>
+        <li>
+          <a href="/">CONTACT</a>
+        </li>
+        <li>
+          <a href="/">REGISTER</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </div>
+
+<!-- Mobile overlay + off-canvas panel -->
+<div id="nav-overlay" class="hidden fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"></div>
+
+<aside id="nav-panel" class="fixed inset-y-0 left-0 w-72 bg-white z-50 transform -translate-x-full transition-transform duration-300 shadow-xl md:hidden">
+  <div class="p-4 border-b flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <img src="/image/logo.png" alt="Site logo" class="h-10 w-auto" />
+      <!-- <div>
+        <div class="font-bold uppercase">THAI NGUYEN UNIVERSITY</div>
+        <div class="text-sm text-gray-500 uppercase">THAI NGUYEN UNIVERSITY</div>
+      </div> -->
+    </div>
+    <button id="nav-close" aria-label="Close menu" class="p-2 text-gray-600">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="p-4">
+    <ul class="space-y-4 text-gray-700">
+      <li><a href="/" class="block py-2 uppercase">HOME</a></li>
+      <li><a href="/" class="block py-2 uppercase">ABOUT</a></li>
+
+      <li>
+        <div class="flex items-center justify-between" id="major-row-mobile">
+          <a href="/" class="py-2">MAJOR</a>
+          <button id="major-toggle-mobile" aria-controls="major-submenu-mobile" aria-expanded="false" class="p-1">
+            <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+        </div>
+        <ul id="major-submenu-mobile" class="hidden mt-2 space-y-2 pl-3 border-l border-gray-100">
+          <li class="py-2"><a href="/">INFORMATION TECHNOLOGY</a></li>
+          <li class="py-2"><a href="/">ACCOUNTANT</a></li>
+          <li class="py-2"><a href="/">BUSINESS ADMINISTRATION</a></li>
+        </ul>
+      </li>
+
+  <li><a href="/" class="block py-2 uppercase">SCHEDULE</a></li>
+  <li><a href="/" class="block py-2 uppercase">REGISTER</a></li>
+  <li><a href="/" class="block py-2 uppercase">NEWS</a></li>
+    </ul>
+  </nav>
+
+</aside>
