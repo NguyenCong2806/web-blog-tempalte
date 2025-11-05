@@ -1,11 +1,11 @@
 <div class="w-full">
-  <nav class="container mx-auto px-4 py-3">
+  <nav class="max-w-7xl mx-auto px-4 py-3">
     <div class="flex items-center justify-between">
-      <!-- Brand / Logo -->
-      <div class="text-lg font-bold navbar-brand">
+  <!-- Brand / Logo -->
+  <div class="text-lg font-bold navbar-brand pl-0">
         <a href="/" class="flex items-center">
-          <!-- larger logo: h-12 on mobile, h-14 on md+ -->
-          <img src="/image/logo.png" alt="Site logo" class="h-12 md:h-14 w-auto" />
+          <!-- larger logo: h-14 on mobile, h-16 on md+ -->
+          <img src="/image/logo.png" alt="Site logo" class="h-14 md:h-16 w-auto" />
         </a>
       </div>
 
@@ -24,7 +24,7 @@
           <a href="/">HOME</a>
         </li>
         <li>
-          <a href="/">ABOUT</a>
+          <a href="/about">ABOUT</a>
         </li>
 
         <!-- Major with dropdown (desktop absolute, mobile collapsible) -->
@@ -78,9 +78,9 @@
 <div id="nav-overlay" class="hidden fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden"></div>
 
 <aside id="nav-panel" class="fixed inset-y-0 left-0 w-72 bg-white z-50 transform -translate-x-full transition-transform duration-300 shadow-xl md:hidden">
-  <div class="p-4 border-b flex items-center justify-between">
+    <div class="p-4 border-b flex items-center justify-between">
     <div class="flex items-center space-x-3">
-      <img src="/image/logo.png" alt="Site logo" class="h-10 w-auto" />
+      <img src="/image/logo.png" alt="Site logo" class="h-12 w-auto" />
       <!-- <div>
         <div class="font-bold uppercase">THAI NGUYEN UNIVERSITY</div>
         <div class="text-sm text-gray-500 uppercase">THAI NGUYEN UNIVERSITY</div>
@@ -96,7 +96,7 @@
   <nav class="p-4">
     <ul class="space-y-4 text-gray-700">
       <li><a href="/" class="block py-2 uppercase">HOME</a></li>
-      <li><a href="/" class="block py-2 uppercase">ABOUT</a></li>
+      <li><a href="/about" class="block py-2 uppercase">ABOUT</a></li>
 
       <li>
         <div class="flex items-center justify-between" id="major-row-mobile">

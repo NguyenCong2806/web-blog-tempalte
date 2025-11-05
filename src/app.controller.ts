@@ -36,6 +36,7 @@ export class AppController {
       tit: 'Những giá trị bạn sẽ nhận được từ chương trình của Đại học Thái Nguyên',
     };
     return {
+      title:"home",
       imagedatas: imageData,
       headings: heading,
       datamajor: majorData,

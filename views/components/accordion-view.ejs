@@ -2,121 +2,48 @@
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
     <!-- Accordion column (left on large screens) -->
     <div class="lg:col-span-7">
-      <div class="bg-white rounded-lg shadow-sm overflow-hidden divide-y divide-gray-100">
-        <details class="group" open>
-          <summary
-            class="flex w-full cursor-pointer items-center justify-between px-4 py-3 sm:py-4 text-base sm:text-lg font-medium text-secondary-900 group-open:text-primary-500 transition-colors bg-white group-open:bg-gray-50">
-            <span class="truncate">Đối tượng tuyển sinh</span>
-            <div class="ml-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="block h-6 w-6 group-open:hidden" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="hidden h-6 w-6 group-open:block" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-              </svg>
+      <div class="">
+        <% const items = typeof accordions !== 'undefined' && Array.isArray(accordions) ? accordions : [
+          { title: 'Sở hữu Bằng Đại học uy tín', body: 'Hệ thống đào tạo đảm bảo cấp bằng chính quy hợp pháp và có giá trị trên toàn quốc.', open: true, icon: '🎓' },
+          { title: 'Thời gian đào tạo', body: 'Thời gian đào tạo linh hoạt theo từng chuyên ngành và chương trình học.', icon: '📅' },
+          { title: 'Cố vấn học tập', body: 'Cố vấn học tập đồng hành trong suốt quá trình học để hỗ trợ sinh viên.', icon: '🚚' },
+        ]; %>
+
+        <div class="space-y-4">
+        <% items.forEach(function(item, idx) { %>
+          <details class="group" <%= item.open ? 'open' : '' %>>
+            <summary class="flex items-center justify-between gap-4 cursor-pointer rounded-lg bg-teal-50 hover:bg-teal-100 py-4 px-5 shadow-sm">
+              <div class="flex items-center gap-4">
+                <div class="flex items-center justify-center w-10 h-10 rounded-md bg-white text-teal-700 text-lg shadow-sm">
+                  <% if (item.iconHtml) { %>
+                    <%- item.iconHtml %>
+                  <% } else if (item.icon) { %>
+                    <span aria-hidden="true"><%= item.icon %></span>
+                  <% } else { %>
+                    <!-- default icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal-700" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z" />
+                    </svg>
+                  <% } %>
+                </div>
+                <div class="text-left">
+                  <div class="text-base md:text-lg font-semibold text-teal-800"><%= item.title %></div>
+                </div>
+              </div>
+
+              <div class="flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600 transform transition-transform duration-200 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </summary>
+
+            <div class="mt-2 px-5 pb-4 text-sm sm:text-base text-teal-700 bg-white rounded-b-lg">
+              <%= item.body %>
             </div>
-          </summary>
-          <div class="px-4 pb-4 text-sm sm:text-base text-secondary-500">
-            Nội dung chi tiết cho đối tượng tuyển sinh. Thông tin sẽ mô tả các nhóm đối tượng, điều kiện và các lưu ý cần thiết.
-          </div>
-        </details>
-        <details class="group">
-          <summary
-            class="flex w-full cursor-pointer items-center justify-between px-4 py-3 sm:py-4 text-base sm:text-lg font-medium text-secondary-900 group-open:text-primary-500 transition-colors bg-white group-open:bg-gray-50">
-            <span class="truncate">Hình thức tuyển sinh</span>
-            <div class="ml-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="block h-6 w-6 group-open:hidden" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="hidden h-6 w-6 group-open:block" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-              </svg>
-            </div>
-          </summary>
-          <div class="px-4 pb-4 text-sm sm:text-base text-secondary-500">
-            Mô tả các hình thức tuyển sinh: xét tuyển, thi tuyển, kết hợp, tuyển thẳng... cùng điều kiện và hồ sơ cần chuẩn bị.
-          </div>
-        </details>
-        <details class="group">
-          <summary
-            class="flex w-full cursor-pointer items-center justify-between px-4 py-3 sm:py-4 text-base sm:text-lg font-medium text-secondary-900 group-open:text-primary-500 transition-colors bg-white group-open:bg-gray-50">
-            <span class="truncate">Yêu cầu</span>
-            <div class="ml-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="block h-6 w-6 group-open:hidden" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="hidden h-6 w-6 group-open:block" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-              </svg>
-            </div>
-          </summary>
-          <div class="px-4 pb-4 text-sm sm:text-base text-secondary-500">
-            Các yêu cầu về bằng cấp, năng lực và các chứng nhận phụ trợ nếu có.
-          </div>
-        </details>
-        <details class="group">
-          <summary
-            class="flex w-full cursor-pointer items-center justify-between px-4 py-3 sm:py-4 text-base sm:text-lg font-medium text-secondary-900 group-open:text-primary-500 transition-colors bg-white group-open:bg-gray-50">
-            <span class="truncate">Lịch khai giảng</span>
-            <div class="ml-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="block h-6 w-6 group-open:hidden" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="hidden h-6 w-6 group-open:block" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-              </svg>
-            </div>
-          </summary>
-          <div class="px-4 pb-4 text-sm sm:text-base text-secondary-500">
-            Thông tin về lịch khai giảng các khóa và thời hạn nộp hồ sơ.
-          </div>
-        </details>
-        <details class="group">
-          <summary
-            class="flex w-full cursor-pointer items-center justify-between px-4 py-3 sm:py-4 text-base sm:text-lg font-medium text-secondary-900 group-open:text-primary-500 transition-colors bg-white group-open:bg-gray-50">
-            <span class="truncate">Nơi tiếp nhận hồ sơ</span>
-            <div class="ml-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="block h-6 w-6 group-open:hidden" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="hidden h-6 w-6 group-open:block" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-              </svg>
-            </div>
-          </summary>
-          <div class="px-4 pb-4 text-sm sm:text-base text-secondary-500">
-            Địa chỉ, email và các kênh tiếp nhận hồ sơ.
-          </div>
-        </details>
-        <details class="group">
-          <summary
-            class="flex w-full cursor-pointer items-center justify-between px-4 py-3 sm:py-4 text-base sm:text-lg font-medium text-secondary-900 group-open:text-primary-500 transition-colors bg-white group-open:bg-gray-50">
-            <span class="truncate">Văn bằng sau tốt nghiệp</span>
-            <div class="ml-4 flex-shrink-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="block h-6 w-6 group-open:hidden" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="hidden h-6 w-6 group-open:block" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-              </svg>
-            </div>
-          </summary>
-          <div class="px-4 pb-4 text-sm sm:text-base text-secondary-500">
-            Thông tin về văn bằng, chứng chỉ và công nhận sau khi tốt nghiệp.
-          </div>
-        </details>
+          </details>
+        <% }); %>
+        </div>
       </div>
     </div>
 
