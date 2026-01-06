@@ -1,7 +1,7 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import Service from '../Service';
-import { Advertisement } from 'src/models/viewmodel/advertisement/Advertisement';
 import { IAdvertisementService } from './IAdvertisement.Service';
+import { Advertisement } from 'src/models/viewmodel/advertisement/Advertisement';
 @Injectable()
 export class AdvertisementService
     extends Service<Advertisement>
