@@ -1,0 +1,96 @@
+<section class="py-20 bg-teal-50 relative overflow-hidden">
+  
+  <div class="absolute top-0 left-0 w-64 h-64 bg-teal-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+  <div class="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    
+    <div class="text-center mb-16" data-aos="fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-teal-900 uppercase tracking-wide">
+        Cảm nhận Học viên
+      </h2>
+      <div class="mt-3 h-1.5 w-24 bg-orange-400 mx-auto rounded-full"></div>
+      <p class="mt-4 text-gray-600 max-w-2xl mx-auto">
+        Lắng nghe những chia sẻ thực tế từ các cựu sinh viên và đối tác doanh nghiệp về chất lượng đào tạo.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <% if (typeof feedbacks !== 'undefined' && feedbacks.length > 0) { %>
+        <% 
+           // Sắp xếp feedback theo thứ tự ưu tiên
+           feedbacks.sort((a, b) => (a.location || 999) - (b.location || 999));
+        %>
+
+        <% feedbacks.forEach(function(item) { %>
+          
+          <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 flex flex-col h-full relative group">
+            
+            <div class="absolute top-6 right-8 text-9xl text-teal-50 font-serif opacity-50 group-hover:text-teal-100 transition-colors pointer-events-none">
+              ”
+            </div>
+
+            <% if (item.icon) { %>
+              <div class="w-12 h-12 mb-6 rounded-full bg-teal-50 flex items-center justify-center">
+                <img 
+                  src="<%= item.icon %>" 
+                  alt="icon" 
+                  class="w-6 h-6 object-contain filter invert-0 opacity-60"
+                >
+              </div>
+            <% } else { %>
+              <div class="w-12 h-12 mb-6 rounded-full bg-orange-50 flex items-center justify-center text-orange-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.896 14.389 16.03 15.132 15.403C15.875 14.776 16.975 14.462 18.432 14.462L19.005 14.462L19.005 11.538C17.818 11.538 16.924 11.371 16.322 11.038C15.719 10.706 15.418 10.027 15.418 9L15.418 6L19.418 6L19.418 9C19.418 10.038 19.829 10.557 20.65 10.557L21 10.557L21 21L14.017 21ZM5 21L5 18C5 16.896 5.372 16.03 6.115 15.403C6.858 14.776 7.958 14.462 9.415 14.462L9.988 14.462L9.988 11.538C8.802 11.538 7.907 11.371 7.305 11.038C6.702 10.706 6.401 10.027 6.401 9L6.401 6L10.401 6L10.401 9C10.401 10.038 10.812 10.557 11.633 10.557L11.983 10.557L11.983 21L5 21Z"/></svg>
+              </div>
+            <% } %>
+
+            <div class="relative z-10 mb-6 flex-grow">
+              <p class="text-gray-600 italic leading-relaxed text-lg">
+                "<%= item.detail %>"
+              </p>
+            </div>
+
+            <div class="w-full h-px bg-gray-100 mb-6"></div>
+
+            <div class="flex items-center gap-4 relative z-10">
+              
+              <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
+                <img 
+                  src="<%= item.img || '/images/avatars/default-user.png' %>" 
+                  alt="<%= item.title %>" 
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                >
+              </div>
+
+              <div class="flex flex-col">
+                <h4 class="font-bold text-gray-900 text-base group-hover:text-teal-700 transition-colors">
+                  <%= item.title %>
+                </h4>
+                
+                <% if (item.job) { %>
+                  <span class="text-sm text-gray-500 font-medium">
+                    <%= item.job %>
+                  </span>
+                <% } %>
+                
+                <% if (item.site) { %>
+                  <span class="text-[10px] text-teal-600 uppercase tracking-wider font-bold mt-1">
+                    <%= item.site %>
+                  </span>
+                <% } %>
+              </div>
+
+            </div>
+
+          </div>
+
+        <% }); %>
+      <% } else { %>
+        <p class="col-span-3 text-center text-gray-400">Chưa có đánh giá nào.</p>
+      <% } %>
+
+    </div>
+  </div>
+</section>

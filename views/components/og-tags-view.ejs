@@ -1,0 +1,25 @@
+<% if (seo && seo.og) { %>
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="<%= seo.og.type || 'website' %>">
+<% if (seo.og.title) { %>
+<meta property="og:title" content="<%= seo.og.title %>">
+<% } %>
+<% if (seo.og.description) { %>
+<meta property="og:description" content="<%= seo.og.description %>">
+<% } %>
+<% if (seo.og.url) { %>
+<meta property="og:url" content="<%= seo.og.url %>">
+<% } %>
+<% if (seo.og.site_name) { %>
+<meta property="og:site_name" content="<%= seo.og.site_name %>">
+<% } %>
+<% if (seo.og.image) { %>
+<meta property="og:image" content="<%= seo.og.image %>">
+<% } %>
+<% if (seo.og.image_width) { %>
+<meta property="og:image:width" content="<%= seo.og.image_width %>">
+<% } %>
+<% if (seo.og.image_height) { %>
+<meta property="og:image:height" content="<%= seo.og.image_height %>">
+<% } %>
+<% } %>

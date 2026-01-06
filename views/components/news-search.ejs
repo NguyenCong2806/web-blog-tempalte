@@ -1,0 +1,12 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Tìm kiếm tin tức: "<%= searchQuery %>"</h1>
+  <% if (newsItems.length > 0) { %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% newsItems.forEach(newsItem => { %>
+        <%- include('./news-card.ejs', {newsItem}) %>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p class="text-gray-600">Không tìm thấy kết quả nào cho "<%= searchQuery %>".</p>
+  <% } %>
+</div>

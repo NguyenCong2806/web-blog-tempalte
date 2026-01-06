@@ -1,0 +1,30 @@
+<div class="swiper">
+  <div class="swiper-wrapper">
+    <% carousels.forEach(function(item) { %>
+      <div class="swiper-slide">
+        <div class="relative h-60 md:h-96 lg:h-[780px] group">
+          <img 
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+            src="<%= item.img %>" 
+            alt="<%= item.title %>" 
+            loading="lazy" 
+          />
+        </div>
+      </div>
+    <% }); %>
+  </div>
+  
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-next text-white"></div>
+  <div class="swiper-button-prev text-white"></div>
+</div>
+
+<script>
+  const swiper = new Swiper('.swiper', {
+      loop: true,
+      effect: 'fade',
+      autoplay: { delay: 5000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+  });
+</script>

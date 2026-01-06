@@ -1,0 +1,67 @@
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <% if (typeof cards !== 'undefined' && cards.length > 0) { %>
+        <% cards.forEach(function(item) { %>
+          
+          <div 
+            class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 flex flex-col items-center text-center group relative overflow-hidden"
+          >
+            
+            <% if (item.site) { %>
+              <div class="absolute top-4 right-4">
+                <span class="bg-teal-50 text-teal-700 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider border border-teal-100">
+                  <%= item.site %>
+                </span>
+              </div>
+            <% } %>
+
+            <div class="mb-6 relative">
+              <div class="w-16 h-16 rounded-full bg-teal-50 flex items-center justify-center group-hover:bg-teal-500 transition-colors duration-300">
+                <img 
+                  src="<%= item.icon || '/images/icons/default-icon.png' %>" 
+                  alt="<%= item.title %>" 
+                  class="w-8 h-8 object-contain filter group-hover:brightness-0 group-hover:invert transition-all duration-300"
+                >
+              </div>
+              <div class="absolute top-0 left-0 w-16 h-16 bg-teal-200 rounded-full opacity-0 group-hover:animate-ping"></div>
+            </div>
+
+            <h3 
+              class="text-gray-900 mb-3 group-hover:text-teal-600 transition-colors">
+
+              <%= item.title %>
+            </h3>
+
+            <p class="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+              <%= item.detail %>
+            </p>
+
+            <% if (item.link) { %>
+              <a 
+                href="<%= item.link %>" 
+                class="mt-auto inline-flex items-center text-sm font-semibold text-teal-600 hover:text-teal-800 transition-colors group/link"
+              >
+                Xem thêm
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            <% } %>
+            
+            <% if (item.location) { %>
+              <div class="absolute bottom-2 left-2 text-[10px] text-gray-300 font-mono">
+                #<%= item.location %>
+              </div>
+            <% } %>
+
+          </div>
+
+        <% }); %>
+      <% } %>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,126 @@
+<section class="py-12 bg-white">
+  <div class="container mx-auto px-4 max-w-5xl">
+    
+    <% if (typeof tabs !== 'undefined' && tabs.length > 0) { %>
+      <% 
+         // Sắp xếp tabs theo location
+         tabs.sort((a, b) => (a.location || 999) - (b.location || 999));
+      %>
+
+      <div class="tabs-component bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        
+        <div class="flex flex-nowrap overflow-x-auto border-b border-gray-100 bg-gray-50 hide-scrollbar">
+          
+          <% tabs.forEach(function(item, index) { %>
+            <button 
+              class="tab-btn flex items-center gap-2 px-6 py-4 text-sm md:text-base font-bold whitespace-nowrap transition-all duration-300 border-b-2 hover:bg-gray-100 focus:outline-none <%= index === 0 ? 'text-teal-600 border-teal-600 bg-white' : 'text-gray-500 border-transparent' %>"
+              data-target="#tab-content-<%= index %>"
+            >
+              <% if (item.icon) { %>
+                <img src="<%= item.icon %>" class="w-5 h-5 object-contain <%= index === 0 ? '' : 'grayscale opacity-60' %>">
+              <% } %>
+              
+              <span><%= item.label %></span>
+
+              <% if (item.site) { %>
+                <span class="ml-2 px-1.5 py-0.5 rounded text-[10px] bg-gray-200 text-gray-600 font-normal">
+                  <%= item.site %>
+                </span>
+              <% } %>
+            </button>
+          <% }); %>
+
+        </div>
+
+        <div class="p-6 md:p-10 min-h-[300px]">
+          
+          <% tabs.forEach(function(item, index) { %>
+            <div 
+              id="tab-content-<%= index %>" 
+              class="tab-pane <%= index === 0 ? 'block animate-fade-in' : 'hidden' %>"
+            >
+              
+              <h3 class="text-xl font-bold text-gray-800 mb-4 md:hidden">
+                <%= item.label %>
+              </h3>
+
+              <div class="prose prose-teal max-w-none text-gray-600 leading-relaxed">
+                <%- item.content %>
+              </div>
+
+            </div>
+          <% }); %>
+
+        </div>
+
+      </div>
+
+    <% } %>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Tìm tất cả các button tab trong component này
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const tabPanes = document.querySelectorAll('.tab-pane');
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // 1. Xử lý UI nút bấm (Active/Inactive)
+          tabButtons.forEach(b => {
+            // Reset về trạng thái thường
+            b.classList.remove('text-teal-600', 'border-teal-600', 'bg-white');
+            b.classList.add('text-gray-500', 'border-transparent');
+            
+            // Làm xám icon của các nút không active
+            const img = b.querySelector('img');
+            if(img) img.classList.add('grayscale', 'opacity-60');
+          });
+
+          // Active nút được bấm
+          btn.classList.remove('text-gray-500', 'border-transparent');
+          btn.classList.add('text-teal-600', 'border-teal-600', 'bg-white');
+          
+          // Sáng icon của nút active
+          const activeImg = btn.querySelector('img');
+          if(activeImg) activeImg.classList.remove('grayscale', 'opacity-60');
+
+          // 2. Xử lý hiển thị nội dung (Show/Hide)
+          const targetId = btn.getAttribute('data-target');
+          
+          // Ẩn tất cả nội dung
+          tabPanes.forEach(pane => {
+            pane.classList.add('hidden');
+            pane.classList.remove('block', 'animate-fade-in');
+          });
+
+          // Hiện nội dung tương ứng
+          const targetPane = document.querySelector(targetId);
+          if (targetPane) {
+            targetPane.classList.remove('hidden');
+            targetPane.classList.add('block', 'animate-fade-in');
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+    /* Ẩn thanh cuộn nhưng vẫn cuộn được trên mobile */
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+  </style>
+</section>

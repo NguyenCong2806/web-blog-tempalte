@@ -1,0 +1,62 @@
+<main class="pt-24 pb-16 bg-white">
+  
+  <div class="container mx-auto px-4 max-w-4xl text-center mb-10">
+    
+    <% if (pageContent.site) { %>
+      <span class="inline-block py-1 px-3 rounded-full bg-teal-50 text-teal-700 text-xs font-bold tracking-wider uppercase mb-4">
+        <%= pageContent.site %>
+      </span>
+    <% } %>
+
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6">
+      <%= pageContent.heading %>
+    </h1>
+
+    <div class="flex items-center justify-center gap-6 text-gray-500 text-sm">
+      
+      <div class="flex items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        <span><%= pageContent.views || 0 %> lượt xem</span>
+      </div>
+
+      </div>
+  </div>
+
+  <% if (pageContent.thumbnail) { %>
+    <div class="container mx-auto px-4 max-w-5xl mb-12">
+      <div class="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-lg">
+        <img 
+          src="<%= pageContent.thumbnail %>" 
+          alt="<%= pageContent.heading %>" 
+          class="w-full h-full object-cover"
+        >
+      </div>
+    </div>
+  <% } %>
+
+  <article class="container mx-auto px-4 max-w-3xl">
+    
+    <div class="prose prose-lg prose-teal mx-auto text-gray-700">
+      
+      <%- pageContent.content %>
+
+    </div>
+
+  </article>
+
+  <div class="container mx-auto px-4 max-w-3xl mt-12 pt-8 border-t border-gray-100">
+    <% if (pageContent.metaKeywords) { %>
+      <div class="flex flex-wrap gap-2">
+        <% pageContent.metaKeywords.split(',').forEach(function(tag) { %>
+          <a href="#" class="px-3 py-1 bg-gray-100 text-gray-600 rounded hover:bg-teal-50 hover:text-teal-600 transition-colors text-sm">
+            #<%= tag.trim() %>
+          </a>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+</main>

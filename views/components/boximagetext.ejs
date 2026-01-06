@@ -1,0 +1,74 @@
+<section class="py-16 bg-white overflow-hidden">
+    <div class="container mx-auto px-4">
+
+        <% if (typeof boxImageTexts !=='undefined' && boxImageTexts.length> 0) { %>
+            <% boxImageTexts.forEach(function(item, index) { %>
+
+                <% const isImageRight=(item.position && item.position % 2===0); %>
+
+                    <div
+                        class="flex flex-col md:flex-row items-center gap-8 lg:gap-16 mb-20 last:mb-0 group <%= isImageRight ? 'md:flex-row-reverse' : '' %>">
+
+                        <div class="w-full md:w-1/2 relative"
+                            data-aos="<%= isImageRight ? 'fade-left' : 'fade-right' %>">
+                            <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                                <img src="<%= item.image || '/images/default-placeholder.jpg' %>"
+                                    alt="<%= item.heading %>"
+                                    class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                                    loading="lazy">
+
+                                <% if (item.site) { %>
+                                    <div
+                                        class="absolute top-4 left-4 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded shadow-md uppercase tracking-wider">
+                                        <%= item.site %>
+                                    </div>
+                                    <% } %>
+                            </div>
+
+                            <div
+                                class="absolute -bottom-6 -right-6 w-24 h-24 bg-teal-50 rounded-full -z-10 blur-xl opacity-70">
+                            </div>
+                            <div
+                                class="absolute -top-6 -left-6 w-32 h-32 bg-blue-50 rounded-full -z-10 blur-xl opacity-70">
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-1/2" data-aos="fade-up">
+
+                            <% if (item.heading) { %>
+                                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                                    <%= item.heading %>
+                                </h3>
+                                <% } %>
+
+                                    <div
+                                        class="h-1.5 w-20 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full mb-6">
+                                    </div>
+
+                                    <% if (item.note) { %>
+                                        <div class="prose prose-lg text-gray-600 text-justify">
+                                            <%- item.note.replace(/\n/g, '<br>' ) %>
+                                        </div>
+                                        <% } %>
+
+                                            <div class="mt-8">
+                                                <a href="#"
+                                                    class="inline-flex items-center text-teal-700 font-bold hover:text-teal-900 transition-colors group-hover:translate-x-2 duration-300">
+                                                    Tìm hiểu thêm
+                                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                                    </svg>
+                                                </a>
+                                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <% }); %>
+                        <% } %>
+
+    </div>
+</section>

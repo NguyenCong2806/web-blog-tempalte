@@ -1,0 +1,19 @@
+<% if (seo && seo.twitter) { %>
+<!-- Twitter -->
+<meta property="twitter:card" content="<%= seo.twitter.card || 'summary_large_image' %>">
+<% if (seo.twitter.site) { %>
+<meta property="twitter:site" content="<%= seo.twitter.site %>">
+<% } %>
+<% if (seo.twitter.creator) { %>
+<meta property="twitter:creator" content="<%= seo.twitter.creator %>">
+<% } %>
+<% if (seo.twitter.title) { %>
+<meta property="twitter:title" content="<%= seo.twitter.title %>">
+<% } %>
+<% if (seo.twitter.description) { %>
+<meta property="twitter:description" content="<%= seo.twitter.description %>">
+<% } %>
+<% if (seo.twitter.image) { %>
+<meta property="twitter:image" content="<%= seo.twitter.image %>">
+<% } %>
+<% } %>

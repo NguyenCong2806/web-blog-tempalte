@@ -1,0 +1,15 @@
+<% if (seo && seo.title) { %>
+<meta name="title" content="<%= seo.title %>">
+<% } %>
+<% if (seo && seo.description) { %>
+<meta name="description" content="<%= seo.description %>">
+<% } %>
+<% if (seo && seo.keywords) { %>
+<meta name="keywords" content="<%= seo.keywords %>">
+<% } %>
+<% if (seo && seo.robots) { %>
+<meta name="robots" content="<%= seo.robots %>">
+<% } %>
+<% if (seo && seo.canonical) { %>
+<link rel="canonical" href="<%= seo.canonical %>">
+<% } %>

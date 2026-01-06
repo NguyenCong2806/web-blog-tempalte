@@ -1,5 +1,47 @@
-<div class="block">
-    <div class="w-28 sm:w-36 md:w-44">
-        <img class="w-full h-auto object-contain" src="/image/logo.png" alt="Site logo"/>
+<% 
+    // 1. Kiểm tra xem biến logos có tồn tại và có dữ liệu không
+    let item = null;
+    if (typeof logos !== 'undefined' && Array.isArray(logos) && logos.length > 0) {
+        // 2. Logic chọn Logo:
+        // Ưu tiên tìm logo có location = 1 (Quy ước là Header Logo)
+        // Nếu không thấy thì lấy logo đầu tiên trong danh sách
+        item = logos.find(l => l.location === 1) || logos[0];
+    }
+%>
+
+<% if (item) { %>
+    <div class="block">
+        
+        <% if (item.link) { %>
+            <a href="<%= item.link %>" class="block w-28 sm:w-36 md:w-44 transition-opacity duration-300 hover:opacity-80" aria-label="Trang chủ">
+        <% } else { %>
+            <div class="w-28 sm:w-36 md:w-44">
+        <% } %>
+
+            <img 
+                class="w-full h-auto object-contain" 
+                src="<%= item.image || '/image/logo.png' %>" 
+                alt="<%= item.site || 'Logo Website' %>"
+                
+                /* Sử dụng width/height từ DB để tối ưu CLS (Layout Shift) */
+                <% if (item.width) { %> width="<%= item.width %>" <% } %>
+                <% if (item.height) { %> height="<%= item.height %>" <% } %>
+                
+                /* Logo nằm ở đầu trang nên cần load ngay (eager) thay vì lazy */
+                loading="eager" 
+            />
+
+        <% if (item.link) { %>
+            </a>
+        <% } else { %>
+            </div>
+        <% } %>
+
     </div>
-</div>
+<% } else { %>
+    <div class="block">
+        <div class="w-28 sm:w-36 md:w-44">
+            <img class="w-full h-auto object-contain" src="/image/logo.png" alt="Default Logo"/>
+        </div>
+    </div>
+<% } %>

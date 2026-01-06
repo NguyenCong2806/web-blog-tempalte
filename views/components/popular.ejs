@@ -1,0 +1,116 @@
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    
+    <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4" data-aos="fade-up">
+      <div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          Khóa học Nổi bật & Phổ biến
+        </h2>
+        <div class="h-1 w-20 bg-teal-500 rounded-full"></div>
+      </div>
+      
+      <a href="/khoa-hoc" class="text-teal-600 font-bold hover:text-teal-800 flex items-center gap-1 transition-colors">
+        Xem tất cả
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <% if (typeof populars !== 'undefined' && populars.length > 0) { %>
+        <% 
+           // Sắp xếp theo location
+           populars.sort((a, b) => (a.location || 999) - (b.location || 999));
+        %>
+
+        <% populars.forEach(function(item) { %>
+          
+          <div class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col h-full transform hover:-translate-y-1">
+            
+            <div class="relative h-48 overflow-hidden">
+              <a href="<%= item.link || '#' %>">
+                <img 
+                  src="<%= item.img || '/images/course-default.jpg' %>" 
+                  alt="<%= item.title %>" 
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                >
+              </a>
+
+              <% if (item.site) { %>
+                <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                  <%= item.site %>
+                </div>
+              <% } %>
+
+              <% if (item.price !== undefined) { %>
+                <div class="absolute top-3 right-3 bg-white text-teal-700 font-bold px-3 py-1 rounded-full shadow-lg text-sm">
+                  <% if (item.price === 0) { %>
+                    Miễn phí
+                  <% } else { %>
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price) %>
+                  <% } %>
+                </div>
+              <% } %>
+            </div>
+
+            <div class="p-5 flex flex-col flex-grow">
+              
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+                  <img src="<%= item.icon || '/images/avatars/default.png' %>" alt="Author" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm text-gray-500 font-medium truncate">
+                  <%= item.author || 'Giảng viên' %>
+                </span>
+              </div>
+
+              <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-teal-600 transition-colors">
+                <a href="<%= item.link || '#' %>">
+                  <%= item.title %>
+                </a>
+              </h3>
+
+              <% if (item.detail) { %>
+                <p class="text-sm text-gray-500 line-clamp-2 mb-4 flex-grow">
+                  <%= item.detail %>
+                </p>
+              <% } %>
+
+              <div class="w-full h-px bg-gray-100 mb-4"></div>
+
+              <div class="flex items-center justify-between text-xs text-gray-500 font-medium">
+                
+                <% if (item.time) { %>
+                  <div class="flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span><%= item.time %> giờ</span>
+                  </div>
+                <% } %>
+
+                <% if (item.quantity) { %>
+                  <div class="flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    </svg>
+                    <span><%= item.quantity %></span>
+                  </div>
+                <% } %>
+
+              </div>
+
+            </div>
+          </div>
+
+        <% }); %>
+      <% } else { %>
+        <p class="col-span-4 text-center text-gray-400">Đang cập nhật danh sách...</p>
+      <% } %>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,170 @@
+<% if (typeof modalPopups !== 'undefined' && modalPopups.length > 0) { %>
+  
+  <% modalPopups.forEach(function(item, index) { %>
+    <% if (item.isshow) { %>
+
+      <div 
+        id="modal-popup-<%= index %>"
+        class="modal-wrapper fixed z-[9999] hidden transition-all duration-300"
+        
+        data-id="<%= index %>"
+        data-timestart="<%= item.timestart || 0 %>"
+        data-timeend="<%= item.timeend || 0 %>"
+        data-scrollstart="<%= item.scrollstart || 0 %>"
+        data-scrollend="<%= item.scrollend || 100 %>"
+        data-position="<%= item.position || 1 %>"
+      >
+
+        <% if (!item.position || item.position === 1) { %>
+          
+          <div class="modal-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+          <div class="modal-content absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[600px] bg-white rounded-2xl shadow-2xl overflow-hidden scale-90 opacity-0 transition-all duration-300">
+            
+            <button class="btn-close absolute top-2 right-2 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-red-500 hover:text-white transition-colors z-20">
+              ✕
+            </button>
+
+            <% if (item.image) { %>
+              <div class="relative w-full h-64 md:h-80">
+                 <% if (item.link) { %> <a href="<%= item.link %>"> <% } %>
+                  <img src="<%= item.image %>" alt="Popup" class="w-full h-full object-cover">
+                <% if (item.link) { %> </a> <% } %>
+              </div>
+            <% } %>
+
+            <% if (item.titel || item.note) { %>
+              <div class="p-6 text-center">
+                <% if (item.site) { %>
+                  <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded uppercase mb-2 inline-block"><%= item.site %></span>
+                <% } %>
+                
+                <% if (item.titel) { %>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2"><%= item.titel %></h3>
+                <% } %>
+                
+                <% if (item.note) { %>
+                  <p class="text-gray-600 text-sm"><%= item.note %></p>
+                <% } %>
+
+                <% if (item.link) { %>
+                  <a href="<%= item.link %>" class="mt-4 inline-block px-6 py-2 bg-teal-600 text-white rounded-full font-bold hover:bg-teal-700 transition-colors">
+                    Xem chi tiết
+                  </a>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+
+        <% } else if (item.position === 2) { %>
+          
+          <div class="modal-content fixed bottom-4 right-4 md:bottom-8 md:right-8 w-80 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transform translate-y-20 opacity-0 transition-all duration-500">
+            
+            <button class="btn-close absolute top-2 right-2 w-6 h-6 bg-white/80 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 z-20 shadow-sm">
+              ✕
+            </button>
+
+            <div class="flex items-center p-4 gap-4">
+              <% if (item.image) { %>
+                <div class="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
+                  <img src="<%= item.image %>" class="w-full h-full object-cover">
+                </div>
+              <% } %>
+              
+              <div class="flex-grow">
+                <% if (item.titel) { %>
+                  <h4 class="font-bold text-gray-800 text-sm mb-1"><%= item.titel %></h4>
+                <% } %>
+                <% if (item.link) { %>
+                  <a href="<%= item.link %>" class="text-xs text-teal-600 font-bold hover:underline">Xem ngay →</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+
+        <% } %>
+
+      </div>
+
+    <% } %>
+  <% }); %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const modals = document.querySelectorAll('.modal-wrapper');
+
+      modals.forEach(modal => {
+        const id = modal.dataset.id;
+        const timeStart = parseInt(modal.dataset.timestart) || 0;
+        const timeEnd = parseInt(modal.dataset.timeend) || 0;
+        const scrollStart = parseInt(modal.dataset.scrollstart) || 0;
+        const position = parseInt(modal.dataset.position);
+        
+        // 1. Check Session Storage (Nếu đã đóng trong phiên này thì không hiện lại)
+        if (sessionStorage.getItem(`popup_closed_${id}`)) {
+          return;
+        }
+
+        // 2. Check Thời gian (Nếu nằm ngoài khung giờ thì bỏ qua)
+        const now = Date.now(); // Unix timestamp (ms)
+        if (timeStart > 0 && now < timeStart) return;
+        if (timeEnd > 0 && now > timeEnd) return;
+
+        // Hàm hiển thị Popup
+        const showModal = () => {
+          modal.classList.remove('hidden');
+          
+          // Animation trick (setTimeout để CSS transition ăn)
+          setTimeout(() => {
+            if (position === 1) {
+              // Center Modal Animation
+              const backdrop = modal.querySelector('.modal-backdrop');
+              const content = modal.querySelector('.modal-content');
+              if(backdrop) backdrop.classList.remove('opacity-0');
+              if(content) {
+                content.classList.remove('scale-90', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+              }
+            } else {
+              // Bottom Right Animation
+              const content = modal.querySelector('.modal-content');
+              if(content) {
+                content.classList.remove('translate-y-20', 'opacity-0');
+              }
+            }
+          }, 10);
+        };
+
+        // 3. Logic kích hoạt
+        if (scrollStart > 0) {
+          // Nếu cài đặt cuộn mới hiện
+          window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.offsetHeight;
+            const winHeight = window.innerHeight;
+            const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+
+            if (scrollPercent >= scrollStart && !modal.classList.contains('active')) {
+              modal.classList.add('active'); // Đánh dấu đã kích hoạt
+              showModal();
+            }
+          });
+        } else {
+          // Hiện ngay lập tức (sau 1 giây cho mượt)
+          setTimeout(showModal, 1000);
+        }
+
+        // 4. Xử lý nút đóng
+        const closeBtns = modal.querySelectorAll('.btn-close, .modal-backdrop');
+        closeBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            // Lưu vào session storage để không hiện lại
+            sessionStorage.setItem(`popup_closed_${id}`, 'true');
+          });
+        });
+      });
+    });
+  </script>
+
+<% } %>
