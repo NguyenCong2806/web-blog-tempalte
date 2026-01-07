@@ -6,6 +6,8 @@ import { AboutModule } from './modules/about/about.module';
 import { NewsModule } from './modules/news/news.module';
 import { ICarouselService } from './service/carousel/ICarousel.Service';
 import { CarouselService } from './service/carousel/Carousel.Service';
+import { IArticleheaderService } from './service/articleheader/IArticleheader.Service';
+import { ArticleheaderService } from './service/articleheader/Articleheader.Service';
 
 @Module({
   imports: [
@@ -21,7 +23,14 @@ import { CarouselService } from './service/carousel/Carousel.Service';
       provide: ICarouselService,
       useClass: CarouselService,
     },
+    {
+      provide: IArticleheaderService,
+      useClass: ArticleheaderService,
+    },
   ],
-  exports: [ICarouselService],
+  exports: [
+    ICarouselService,
+    IArticleheaderService
+  ],
 })
 export class AppModule { }
