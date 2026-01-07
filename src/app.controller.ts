@@ -35,13 +35,6 @@ export class AppController {
     //data carousel
     const carousels = await this.carouselService.findAll(endpoint.carousel);
     const imageData = carousels.item as Carousel[];
-
-    // const imageData: Carousel[] = [
-
-    //   { img: './image/carousel/1.png', heading: 'Ảnh 1', title: 'Chòa công 1', detail: 'Mô tả ảnh 1', link: '#', site: 'TNU', location: 1 },
-    //   { img: './image/carousel/2.jpg', heading: 'Ảnh 2', title: 'Chòa công 2', detail: 'Mô tả ảnh 2', link: '#', site: 'TNU', location: 2 },
-    //   { img: './image/carousel/3.png', heading: 'Ảnh 3', title: 'Chòa công 3', detail: 'Mô tả ảnh 3', link: '#', site: 'TNU', location: 3 },
-    // ];
     // Heading one
     const heading: HeadingData = {
       head: 'TNU E-LEARNING',
