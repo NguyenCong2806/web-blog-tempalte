@@ -1,6 +1,4 @@
 import { Controller, Get, Inject, Render } from '@nestjs/common';
-import { AppService } from './app.service';
-import { CarouselItem, HeadingData, MajorCard } from './viewmodels';
 import { Carousel } from './models/viewmodel/carousel/Carousel';
 import { Advertisement } from './models/viewmodel/advertisement/Advertisement';
 import { ArticleHeader } from './models/viewmodel/articleheader/ArticleHeader';
@@ -19,14 +17,14 @@ import { Parallax } from './models/viewmodel/parallax/Parallax';
 import { Popular } from './models/viewmodel/popular/Popular';
 import { Tabs } from './models/viewmodel/tabs/Tabs';
 import { ICarouselService } from './service/carousel/ICarousel.Service';
-import e from 'express';
 import { endpoint } from './config/urlapi';
+import { IArticleheaderService } from './service/articleheader/IArticleheader.Service';
 
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService,
     @Inject(ICarouselService) private readonly carouselService: ICarouselService,
+    @Inject(IArticleheaderService) private readonly articleheaderService: IArticleheaderService,
   ) { }
 
   @Get()
@@ -35,34 +33,10 @@ export class AppController {
     //data carousel
     const carousels = await this.carouselService.findAll(endpoint.carousel);
     const imageData = carousels.item as Carousel[];
-
-    // const imageData: Carousel[] = [
-
-    //   { img: './image/carousel/1.png', heading: 'Ảnh 1', title: 'Chòa công 1', detail: 'Mô tả ảnh 1', link: '#', site: 'TNU', location: 1 },
-    //   { img: './image/carousel/2.jpg', heading: 'Ảnh 2', title: 'Chòa công 2', detail: 'Mô tả ảnh 2', link: '#', site: 'TNU', location: 2 },
-    //   { img: './image/carousel/3.png', heading: 'Ảnh 3', title: 'Chòa công 3', detail: 'Mô tả ảnh 3', link: '#', site: 'TNU', location: 3 },
-    // ];
+    const heading =  await this.articleheaderService.findAll(endpoint.articleheader);
+    const headers = heading.item as ArticleHeader[];
+    const articleheader = headers[0];
     // Heading one
-    const heading: HeadingData = {
-      head: 'TNU E-LEARNING',
-      tit: 'Đào tạo đa ngành, chương trình học tiết kiệm thời gian',
-    };
-    //data card major
-    const majorData: MajorCard[] = [
-      { url: './image/major/1.jpg', title: 'Information Technology', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-      { url: './image/major/2.jpg', title: 'Electronics Technology', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-      { url: './image/major/3.jpg', title: 'Business Administration', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-      { url: './image/major/4.jpg', title: 'Financial law', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-      { url: './image/major/5.jpg', title: 'E-commerce', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-      { url: './image/major/6.jpg', title: 'Accounting', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-      { url: './image/major/7.jpg', title: 'Banking and Finance', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-      { url: './image/major/8.jpg', title: 'Chinese', des: 'Ngành IT bao gồm nhiều lĩnh vực khác nhau như phát triển phần mềm, quản trị hệ thống và mạng, an ninh mạng, cơ sở dữ liệu, phân tích dữ liệu, hỗ trợ kỹ thuật, và phát triển web' },
-    ];
-    // Heading one
-    const headingtwo: HeadingData = {
-      head: 'BẠN NHẬN ĐƯỢC GÌ',
-      tit: 'Những giá trị bạn sẽ nhận được từ chương trình của Đại học Thái Nguyên',
-    };
     const adsData: Advertisement[] = [
       {
         title: "Tuyển sinh Đại học Từ xa 2024",
@@ -79,27 +53,7 @@ export class AppController {
         site: "Center"
       }
     ];
-    const headersData: ArticleHeader[] = [
-      {
-        site: "NEWS",
-        headingheader: "Tin tức nổi bật",
-        headingbody: "Cập nhật thông tin tuyển sinh mới nhất 2024",
-        headingfooter: "Theo dõi các thông báo quan trọng về thời gian nhập học và hồ sơ cần thiết.",
-        fontsize: 36,      // 36px
-        fontweight: 700,   // Bold
-        isdivider: true,   // Hiện dòng kẻ
-        location: 1
-      },
-      {
-        site: "EDU",
-        headingheader: "Chương trình đào tạo",
-        headingbody: "Các ngành học mũi nhọn",
-        fontsize: 28,
-        fontweight: 500,
-        isdivider: false,
-        location: 2
-      }
-    ];
+    
     const boxData: BoxImageText[] = [
       {
         site: "E-LEARNING",
@@ -557,10 +511,8 @@ export class AppController {
       currentPath: '/',
       imagedatas: imageData,
       headings: heading,
-      datamajor: majorData,
-      headingtwos: headingtwo,
       advertisements: adsData,
-      articleheaders: headersData,
+      articleheader: articleheader,
       boxImageTexts: boxData,
       cards: cardData,
       contacts: contactData,

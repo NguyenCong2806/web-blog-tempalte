@@ -7,59 +7,59 @@ export const urlapi = {
 
 export const endpoint = {
   // Url API Logo //
-  logo: "logo",
+  logo: "logo/getalls",
   // Url API Accordion
-  accordion: "accordion",
+  accordion: "accordion/getalls",
   // Url API Advertisement
-  advertisement: "advertisement",
+  advertisement: "advertisement/getalls",
   // Url API articleheader
-  articleheader: "articleheader",
+  articleheader: "articleheader/getalls",
   // Url API card
-  card: "card",
+  card: "card/getalls",
   // Url API Card Numbers
-  cardnumber: "cardnumbers",
+  cardnumber: "cardnumbers/getalls",
   // Url API contact
-  contact: "contact",
+  contact: "contact/getalls",
   // Url API Contenttype
-  contenttype: "contenttype",
+  contenttype: "contenttype/getalls",
   contenttypegetall: "contenttype/getalls",
   // Url API tag
-  tag: "tag",
+  tag: "tag/getalls",
   // Url API Redirect
-  redirect: "redirect",
+  redirect: "redirect/getalls",
   // Url API Contenttype
-  cta: "cta",
+  cta: "cta/getalls",
   // Url API FooterBox
-  footerbox: "footerbox",
+  footerbox: "footerbox/getalls",
   // Url API BoxImageText
-  boximagetext: "boximagetext",
+  boximagetext: "boximagetext/getalls",
   // Url API Carousel
   carousel: "carousel/getalls",
   // Url API Courses
-  courses: "courses",
+  courses: "courses/getalls",
   // Url API Expert
-  expert: "expert",
+  expert: "expert/getalls",
   // Url API Feedback
-  feedback: "feedback",
+  feedback: "feedback/getalls",
   // Url API ImageListInfo
-  imagelistinfo: "imagelistinfo",
+  imagelistinfo: "imagelistinfo/getalls",
   // Url API ImageListInfo
-  majorsnote: "majorsnote",
+  majorsnote: "majorsnote/getalls",
   // Url API Tab
-  tab: "tab",
+  tab: "tab/getalls",
   // Url API Popular
-  popular: "popular",
+  popular: "popular/getalls",
   // Url API Parallax
-  parallax: "parallax",
-  modalpopup: "modalpopup",
+  parallax: "parallax/getalls",
+  modalpopup: "modalpopup/getalls",
   // Url API Content
-  content: "content",
+  content: "content/getalls",
   // Url API Menu
-  menu: "menu",
+  menu: "menu/getalls",
   // Url API PageContent
-  pagecontent: "pagecontent",
-   // Url API SystemConfig //
-  systemconfig: "systemconfig",
+  pagecontent: "pagecontent/getalls",
+  // Url API SystemConfig //
+  systemconfig: "systemconfig/getalls",
   // file //
 };
 export function getUrlFile(pathOrFilename: string | undefined | null): string {
