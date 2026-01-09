@@ -19,12 +19,14 @@ import { Tabs } from './models/viewmodel/tabs/Tabs';
 import { ICarouselService } from './service/carousel/ICarousel.Service';
 import { endpoint } from './config/urlapi';
 import { IArticleheaderService } from './service/articleheader/IArticleheader.Service';
+import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 
 @Controller()
 export class AppController {
   constructor(
     @Inject(ICarouselService) private readonly carouselService: ICarouselService,
     @Inject(IArticleheaderService) private readonly articleheaderService: IArticleheaderService,
+    @Inject(IBoxImageTextService) private readonly boxImageTextService: IBoxImageTextService,
   ) { }
 
   @Get()
@@ -36,6 +38,8 @@ export class AppController {
     const heading =  await this.articleheaderService.findAll(endpoint.articleheader);
     const headers = heading.item as ArticleHeader[];
     const articleheader = headers[0];
+    const boxImageTexts = await this.boxImageTextService.findAll(endpoint.boximagetext);
+    const boxImageTextData = boxImageTexts.item as BoxImageText[];
     // Heading one
     const adsData: Advertisement[] = [
       {
@@ -70,7 +74,23 @@ export class AppController {
         note: "Văn bằng tốt nghiệp đại học từ xa có giá trị pháp lý tương đương hệ chính quy. \nĐủ điều kiện học lên Thạc sĩ, Tiến sĩ và thi công chức theo quy định của Nhà nước.",
         location: 2,
         position: 2 // Chẵn -> Ảnh PHẢI
-      }
+      },
+      {
+        site: "E-LEARNING",
+        heading: "Phương pháp học tập hiện đại 4.0",
+        image: "./image/major/1.jpg",
+        note: "Hệ thống bài giảng được thiết kế trực quan, sinh động. \nSinh viên có thể học mọi lúc, mọi nơi, trên mọi thiết bị.",
+        location: 1,
+        position: 1 // Lẻ -> Ảnh TRÁI
+      },
+      {
+        site: "CERTIFICATE",
+        heading: "Bằng cấp chính quy - Giá trị trọn đời",
+        image: "./image/major/2.jpg",
+        note: "Văn bằng tốt nghiệp đại học từ xa có giá trị pháp lý tương đương hệ chính quy. \nĐủ điều kiện học lên Thạc sĩ, Tiến sĩ và thi công chức theo quy định của Nhà nước.",
+        location: 2,
+        position: 2 // Chẵn -> Ảnh PHẢI
+      },
     ];
     const cardData: Card[] = [
       {
@@ -513,7 +533,7 @@ export class AppController {
       headings: heading,
       advertisements: adsData,
       articleheader: articleheader,
-      boxImageTexts: boxData,
+      boxImageTexts: boxImageTextData,
       cards: cardData,
       contacts: contactData,
       courses: coursesData,
