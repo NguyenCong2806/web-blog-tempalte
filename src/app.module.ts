@@ -10,6 +10,8 @@ import { IArticleheaderService } from './service/articleheader/IArticleheader.Se
 import { ArticleheaderService } from './service/articleheader/Articleheader.Service';
 import { BoxImageTextService } from './service/boxImagetext/BoxImageText.Service';
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
+import { CardService } from './service/card/Card.Service';
+import { ICardService } from './service/card/ICard.Service';
 
 @Module({
   imports: [
@@ -32,7 +34,12 @@ import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Servi
     {
       provide: IBoxImageTextService,
       useClass: BoxImageTextService,
+    },
+    {
+      provide: ICardService,
+      useClass: CardService,
     }
+
   ],
   exports: [
     ICarouselService,

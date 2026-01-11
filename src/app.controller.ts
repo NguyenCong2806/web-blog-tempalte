@@ -20,6 +20,7 @@ import { ICarouselService } from './service/carousel/ICarousel.Service';
 import { endpoint } from './config/urlapi';
 import { IArticleheaderService } from './service/articleheader/IArticleheader.Service';
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
+import { ICardService } from './service/card/ICard.Service';
 
 @Controller()
 export class AppController {
@@ -27,6 +28,7 @@ export class AppController {
     @Inject(ICarouselService) private readonly carouselService: ICarouselService,
     @Inject(IArticleheaderService) private readonly articleheaderService: IArticleheaderService,
     @Inject(IBoxImageTextService) private readonly boxImageTextService: IBoxImageTextService,
+    @Inject(ICardService) private readonly cardService: ICardService,
   ) { }
 
   @Get()
@@ -40,7 +42,9 @@ export class AppController {
     const articleheader = headers[0];
     const boxImageTexts = await this.boxImageTextService.findAll(endpoint.boximagetext);
     const boxImageTextData = boxImageTexts.item as BoxImageText[];
-    // Heading one
+    const cards = await this.cardService.findAll(endpoint.card);
+    const cardData = cards.item as Card[];
+    // Heading onee
     const adsData: Advertisement[] = [
       {
         title: "Tuyển sinh Đại học Từ xa 2024",
@@ -92,48 +96,7 @@ export class AppController {
         position: 2 // Chẵn -> Ảnh PHẢI
       },
     ];
-    const cardData: Card[] = [
-      {
-        site: "FEATURE",
-        icon: "./image/major/1.jpg", // Icon bằng ảnh
-        title: "Bằng cấp giá trị",
-        detail: "Được bộ GD&ĐT công nhận, có giá trị thi công chức, xét bậc lương và học lên cao học.",
-        link: "/bang-cap",
-        fontsize: 20,
-        fontweight: 700,
-        location: 1
-      },
-      {
-        site: "TIME",
-        icon: "./image/major/2.jpg",
-        title: "Tiết kiệm thời gian",
-        detail: "Học 100% Online mọi lúc mọi nơi, không cần đến trường, phù hợp người đi làm bận rộn.",
-        link: "/phuong-phap-hoc",
-        fontsize: 20,
-        fontweight: 700,
-        location: 2
-      },
-      {
-        site: "COST",
-        icon: "./image/major/3.jpg",
-        title: "Chi phí tối ưu",
-        detail: "Tiết kiệm chi phí đi lại, ăn ở. Học phí cạnh tranh, chia nhỏ nhiều đợt đóng.",
-        link: "/hoc-phi",
-        fontsize: 20,
-        fontweight: 700,
-        location: 3
-      },
-      {
-        site: "SUPPORT",
-        icon: "./image/major/4.jpg",
-        title: "Hỗ trợ 24/7",
-        detail: "Đội ngũ cố vấn học tập và kỹ thuật hỗ trợ tận tình trong suốt quá trình học tập.",
-        link: "/ho-tro",
-        fontsize: 20,
-        fontweight: 700,
-        location: 4
-      }
-    ];
+    
     const contactData: Contact[] = [
       {
         icon: "/images/icons/location.png",
