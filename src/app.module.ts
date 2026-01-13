@@ -12,6 +12,8 @@ import { BoxImageTextService } from './service/boxImagetext/BoxImageText.Service
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 import { CardService } from './service/card/Card.Service';
 import { ICardService } from './service/card/ICard.Service';
+import { AccordionService } from './service/accordion/Accordion.Service';
+import { IAccordionService } from './service/accordion/IAccordion.Service';
 
 @Module({
   imports: [
@@ -38,7 +40,11 @@ import { ICardService } from './service/card/ICard.Service';
     {
       provide: ICardService,
       useClass: CardService,
-    }
+    },
+    {
+      provide: IAccordionService,
+      useClass: AccordionService,
+    },
 
   ],
   exports: [

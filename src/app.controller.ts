@@ -21,6 +21,7 @@ import { endpoint } from './config/urlapi';
 import { IArticleheaderService } from './service/articleheader/IArticleheader.Service';
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 import { ICardService } from './service/card/ICard.Service';
+import { IAccordionService } from './service/accordion/IAccordion.Service';
 
 @Controller()
 export class AppController {
@@ -29,6 +30,7 @@ export class AppController {
     @Inject(IArticleheaderService) private readonly articleheaderService: IArticleheaderService,
     @Inject(IBoxImageTextService) private readonly boxImageTextService: IBoxImageTextService,
     @Inject(ICardService) private readonly cardService: ICardService,
+    @Inject(IAccordionService) private readonly accordionService: IAccordionService,
   ) { }
 
   @Get()
@@ -44,6 +46,8 @@ export class AppController {
     const boxImageTextData = boxImageTexts.item as BoxImageText[];
     const cards = await this.cardService.findAll(endpoint.card);
     const cardData = cards.item as Card[];
+    const accordions = await this.accordionService.findAll(endpoint.accordion);
+    const accordionData = accordions.item as Card[];
     // Heading onee
     const adsData: Advertisement[] = [
       {
@@ -498,6 +502,7 @@ export class AppController {
       articleheader: articleheader,
       boxImageTexts: boxImageTextData,
       cards: cardData,
+      accordions: accordionData,
       contacts: contactData,
       courses: coursesData,
       ctas: ctaData,
