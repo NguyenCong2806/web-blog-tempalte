@@ -22,6 +22,12 @@ import { IArticleheaderService } from './service/articleheader/IArticleheader.Se
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 import { ICardService } from './service/card/ICard.Service';
 import { IAccordionService } from './service/accordion/IAccordion.Service';
+import { ICardNumbersService } from './service/cardnumbers/ICardNumbers.Service';
+import { Accordion } from './models/viewmodel/accordion/Accordion';
+import { CardNumbers } from './models/viewmodel/cardnumbers/CardNumbers';
+import { IFeedbackService } from './service/feedback/IFeedback.Service';
+import { IMajorsnoteService } from './service/majorsnote/IMajorsnote.Service';
+import { ICtaService } from './service/cta/ICta.Service';
 
 @Controller()
 export class AppController {
@@ -31,6 +37,10 @@ export class AppController {
     @Inject(IBoxImageTextService) private readonly boxImageTextService: IBoxImageTextService,
     @Inject(ICardService) private readonly cardService: ICardService,
     @Inject(IAccordionService) private readonly accordionService: IAccordionService,
+    @Inject(ICardNumbersService) private readonly cardNumbersService: ICardNumbersService,
+    @Inject(IFeedbackService) private readonly feedbackService: IFeedbackService,
+    @Inject(IMajorsnoteService) private readonly majorsnoteService : IMajorsnoteService,
+    @Inject(ICtaService) private readonly ctaService : ICtaService,
   ) { }
 
   @Get()
@@ -47,7 +57,16 @@ export class AppController {
     const cards = await this.cardService.findAll(endpoint.card);
     const cardData = cards.item as Card[];
     const accordions = await this.accordionService.findAll(endpoint.accordion);
-    const accordionData = accordions.item as Card[];
+    const accordionData = accordions.item as Accordion[];
+    const cardNumbers = await this.cardNumbersService.findAll(endpoint.cardnumber);
+    const cardnumbers = cardNumbers.item as CardNumbers[];
+    const feedbacks = await this.feedbackService.findAll(endpoint.feedback);
+    const feedbackData = feedbacks.item as Feedback[];
+    const majorsnotes = await this.majorsnoteService.findAll(endpoint.majorsnote);
+    const majorsnoteData = majorsnotes.item as MajorsNote[];
+
+    const ctas = await this.ctaService.findAll(endpoint.cta);
+    const ctaData = ctas.item as Cta[];
     // Heading onee
     const adsData: Advertisement[] = [
       {
@@ -174,22 +193,6 @@ export class AppController {
         location: 3
       }
     ];
-    const ctaData: Cta[] = [
-      {
-        text: "Nhận học bổng 50% - Đăng ký ngay",
-        link: "/register",
-        isshow: true,  // Đang bật -> Hiển thị
-        site: "KHUYẾN MÃI",
-        location: 1
-      },
-      {
-        text: "Tạm ẩn chương trình cũ",
-        link: "#",
-        isshow: true, // Đang tắt -> Không hiển thị
-        site: "OLD",
-        location: 2
-      }
-    ];
     const expertData: Expert[] = [
       {
         title: "PGS.TS Nguyễn Văn A",
@@ -226,35 +229,6 @@ export class AppController {
         link: "/profile/mark",
         site: "QTKD",
         location: 4
-      }
-    ];
-    const feedbackData: Feedback[] = [
-      {
-        title: "Nguyễn Thu Hà",
-        job: "Cựu sinh viên K15 - Ngành Ngôn ngữ Anh",
-        img: "/images/avatars/student-1.jpg",
-        icon: "/images/icons/quote-orange.png",
-        detail: "Chương trình học rất linh hoạt, giúp tôi vừa đi làm vừa hoàn thành tấm bằng đại học mơ ước. Các thầy cô hỗ trợ cực kỳ nhiệt tình.",
-        site: "ALUMNI",
-        location: 1
-      },
-      {
-        title: "Trần Minh Tuấn",
-        job: "Giám đốc nhân sự - FPT Software",
-        img: "/images/avatars/partner-1.jpg",
-        icon: "/images/icons/handshake.png",
-        detail: "Chúng tôi đánh giá cao chất lượng sinh viên tốt nghiệp từ hệ đào tạo từ xa của trường. Các bạn có kỹ năng tự học và thích nghi công việc rất tốt.",
-        site: "PARTNER",
-        location: 2
-      },
-      {
-        title: "Lê Thị Lan",
-        job: "Học viên Văn bằng 2 - Luật Kinh tế",
-        img: "/images/avatars/student-2.jpg",
-        icon: "/images/icons/quote-blue.png",
-        detail: "Hệ thống E-learning hiện đại, bài giảng trực quan. Tôi tiết kiệm được rất nhiều chi phí đi lại so với học truyền thống.",
-        site: "STUDENT",
-        location: 3
       }
     ];
     const partnersData: ImageListInfo[] = [
@@ -503,6 +477,8 @@ export class AppController {
       boxImageTexts: boxImageTextData,
       cards: cardData,
       accordions: accordionData,
+      cardnumbers: cardnumbers,
+      majorsnotes: majorsnoteData,
       contacts: contactData,
       courses: coursesData,
       ctas: ctaData,
@@ -510,7 +486,7 @@ export class AppController {
       feedbacks: feedbackData,
       partners: partnersData,
       logos: logoData,
-      majorsnotes: notesData,
+      
       modalpopups: popupData,
       parallax: parallaxData,
       populars: popularData,

@@ -1,0 +1,87 @@
+<div class="w-full" style="background-color: #152e4d; color: white;">
+
+    <div class="container mx-auto mt-10 text-center">
+        
+        <h2 class="text-3xl md:text-5xl font-bold uppercase mb-6 tracking-wider drop-shadow-lg" style="color: #ffffff;">
+            NHỮNG CON SỐ ẤN TƯỢNG
+        </h2>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-20 font-light opacity-90 leading-relaxed" style="color: #e2e8f0;">
+            Cùng xem những thành tựu nổi bật và sự phát triển không ngừng của chúng tôi trong suốt thời gian vừa qua
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-20">
+            <% 
+               const defaults = [
+                    { text: 'Ngành học trực tuyến', end: 9, suffix: '+', prefix: '' },
+                    { text: 'Khóa học', end: 2000, suffix: '%', prefix: '' },
+                    { text: 'Sinh viên theo học', end: 10000, suffix: '%', prefix: '' }
+               ];
+               const items = (typeof cardnumbers !== 'undefined' && Array.isArray(cardnumbers) && cardnumbers.length) 
+                    ? cardnumbers 
+                    : defaults;
+            %>
+
+            <% items.forEach(function(item) { %>
+                <div class="flex flex-col items-center justify-center group relative p-4">
+                    
+                    <div class="counter text-6xl sm:text-7xl md:text-8xl font-extrabold mb-4 drop-shadow-2xl transition-transform duration-300 group-hover:scale-110"
+                         style="color: #ffffff; line-height: 1;"
+                         data-target="<%= item.end || item.count || 0 %>" 
+                         data-suffix="<%= item.suffix || '' %>"
+                         data-prefix="<%= item.prefix || '' %>">
+                        0
+                    </div>
+                    
+                    <div class="text-xl md:text-2xl font-bold uppercase tracking-widest border-t-2 pt-4 mt-2 border-opacity-30" 
+                         style="color: #ff5722; border-color: #ff5722;">
+                        <%= item.text || item.label || 'N/A' %>
+                    </div>
+
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        const counters = document.querySelectorAll('.counter');
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const suffix = counter.getAttribute('data-suffix') || '';
+            const prefix = counter.getAttribute('data-prefix') || '';
+            
+            const duration = 2500; 
+            const stepTime = 20; 
+            const steps = duration / stepTime;
+            const increment = target / steps;
+            
+            let current = 0;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    counter.innerText = prefix + target.toLocaleString('en-US') + suffix;
+                    clearInterval(timer);
+                } else {
+                    counter.innerText = prefix + Math.ceil(current).toLocaleString('en-US') + suffix;
+                }
+            }, stepTime);
+        };
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            counters.forEach(counter => observer.observe(counter));
+        } else {
+            counters.forEach(counter => animateCounter(counter));
+        }
+    })();
+</script>
