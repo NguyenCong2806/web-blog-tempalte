@@ -14,6 +14,14 @@ import { CardService } from './service/card/Card.Service';
 import { ICardService } from './service/card/ICard.Service';
 import { AccordionService } from './service/accordion/Accordion.Service';
 import { IAccordionService } from './service/accordion/IAccordion.Service';
+import { CardNumbersService } from './service/cardnumbers/CardNumbers.Service';
+import { ICardNumbersService } from './service/cardnumbers/ICardNumbers.Service';
+import { FeedbackService } from './service/feedback/Feedback.Service';
+import { IFeedbackService } from './service/feedback/IFeedback.Service';
+import { IMajorsnoteService } from './service/majorsnote/IMajorsnote.Service';
+import { MajorsnoteService } from './service/majorsnote/Majorsnote.Service';
+import { CtaService } from './service/cta/Cta.Service';
+import { ICtaService } from './service/cta/ICta.Service';
 
 @Module({
   imports: [
@@ -45,7 +53,22 @@ import { IAccordionService } from './service/accordion/IAccordion.Service';
       provide: IAccordionService,
       useClass: AccordionService,
     },
-
+    {
+      provide: ICardNumbersService,
+      useClass: CardNumbersService,
+    },
+    {
+      provide: IFeedbackService,
+      useClass: FeedbackService,
+    },
+    {
+      provide: IMajorsnoteService,
+      useClass: MajorsnoteService,
+    },
+     {
+      provide: ICtaService,
+      useClass: CtaService,
+    }
   ],
   exports: [
     ICarouselService,
