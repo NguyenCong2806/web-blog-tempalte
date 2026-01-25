@@ -64,7 +64,6 @@ export class AppController {
     const majorsnoteData = majorsnotes.item as MajorsNote[];
     const modalPopups = await this.modalPopupService.findAll(endpoint.modalpopup);
     const modalPopupData = modalPopups.item as ModalPopup[];
-
     // Heading onee
     const adsData: Advertisement[] = [
       {
@@ -419,7 +418,7 @@ export class AppController {
       experts: expertData,
       feedbacks: feedbackData,
       partners: partnersData,
-      modalpopups: modalPopupData,
+      modalPopups: modalPopupData,
       parallax: parallaxData,
       populars: popularData,
       tabs: tabsData
