@@ -1,0 +1,74 @@
+<% 
+  // Nhận ID của vùng nội dung cần scan (Mặc định là 'post-content' nếu không truyền vào)
+  const targetId = typeof contentId !== 'undefined' ? contentId : 'post-content'; 
+%>
+
+<div id="toc-container" class="hidden mb-8">
+  </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      // 1. Lấy vùng nội dung dựa trên ID được truyền từ EJS
+      const content = document.getElementById('<%= targetId %>');
+      const tocContainer = document.getElementById('toc-container');
+      
+      if (!content || !tocContainer) return;
+
+      // 2. Quét các thẻ Heading
+      const headings = content.querySelectorAll('h2, h3');
+
+      if (headings.length === 0) {
+          tocContainer.style.display = 'none'; // Ẩn nếu không có mục lục
+          return;
+      }
+
+      // Hiện container
+      tocContainer.classList.remove('hidden');
+
+      // 3. Tạo HTML
+      let tocHtml = `
+          <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 shadow-sm">
+              <h3 class="text-lg font-bold text-gray-800 mb-3 border-b border-gray-200 pb-2 flex items-center">
+                  <i class="fa-solid fa-list-ul mr-2 text-blue-600"></i> Mục lục bài viết
+              </h3>
+              <nav>
+                  <ul class="space-y-2 text-sm text-gray-700">
+      `;
+
+      headings.forEach((heading, index) => {
+          // Tạo ID cho heading nếu chưa có
+          const id = heading.id || `toc-heading-${index}`;
+          heading.id = id;
+
+          // Style thụt dòng
+          const isH3 = heading.tagName === 'H3';
+          const liClass = isH3 ? 'ml-6 list-disc marker:text-gray-400' : 'font-semibold text-gray-900'; 
+          
+          tocHtml += `
+              <li class="${liClass}">
+                  <a href="#${id}" class="hover:text-blue-600 hover:underline transition-colors block py-1">
+                      ${heading.innerText}
+                  </a>
+              </li>
+          `;
+      });
+
+      tocHtml += `</ul></nav></div>`;
+      tocContainer.innerHTML = tocHtml;
+
+      // 4. Smooth Scroll (Cuộn mượt)
+      tocContainer.querySelectorAll('a').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+              e.preventDefault();
+              const targetId = this.getAttribute('href').substring(1);
+              const targetElement = document.getElementById(targetId);
+              if (targetElement) {
+                  const headerOffset = 100; // Trừ hao chiều cao header
+                  const elementPosition = targetElement.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+              }
+          });
+      });
+  });
+</script>

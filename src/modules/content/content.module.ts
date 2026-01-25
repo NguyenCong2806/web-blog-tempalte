@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
-import { NewsController } from '../../controller/news/news.controller';
+import { ContentController } from 'src/controller/content/content.controller';
 import { ContentService } from 'src/service/content/content.service';
 import { IContentService } from 'src/service/content/IContentService';
 
 @Module({
-    controllers: [NewsController],
+    imports: [],
+    controllers: [ContentController],
     providers: [
         {
-            provide: IContentService, 
+            provide: IContentService,
             useClass: ContentService,
         },
     ],
     exports: [IContentService],
 })
-export class NewsModule { }
+export class ContentModule { }

@@ -1,0 +1,73 @@
+<div class="relative h-[350px] md:h-[450px] overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070" 
+         class="absolute inset-0 w-full h-full object-cover" 
+         alt="Lễ khai giảng">
+    
+    <div class="absolute inset-0 bg-blue-900/70"></div>
+
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
+        <h1 class="text-3xl md:text-5xl font-bold text-white uppercase mb-4 drop-shadow-lg tracking-wide">
+            Lịch Khai Giảng
+        </h1>
+        <p class="text-blue-200 text-lg md:text-xl font-light">
+            Chương trình Hệ đào tạo từ xa E-Learning
+        </p>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-16 font-sans">
+    
+    <div class="text-center mb-12">
+        <h2 class="text-2xl md:text-3xl font-bold text-blue-900 uppercase mb-3">
+            Khai giảng dự kiến khóa mới nhất
+        </h2>
+        <p class="text-red-500 italic font-medium">
+            (Tuyển sinh từ bằng THPT hoặc tương đương trở lên)
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+        
+        <% if (typeof schedules !== 'undefined') { %>
+            <% schedules.forEach(item => { %>
+                <div class="bg-[#0e5b98] rounded-2xl p-10 text-center text-white shadow-2xl hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group">
+                    
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all"></div>
+
+                    <h3 class="text-2xl font-bold text-[#ffcc00] mb-6 uppercase">
+                        <%= item.location %>
+                    </h3>
+                    
+                    <div class="flex items-center justify-center gap-2 text-lg font-medium mb-4">
+                        <i class="fa-solid fa-location-dot text-red-400 animate-bounce"></i>
+                        <span><%= item.batch %></span>
+                    </div>
+
+                    <p class="text-yellow-200 text-sm font-light border border-white/20 inline-block px-4 py-1 rounded-full">
+                        <%= item.status %>
+                    </p>
+                </div>
+            <% }) %>
+        <% } %>
+
+    </div>
+
+    <div class="text-center">
+        <a href="/dang-ky" class="inline-block bg-[#ffcc00] hover:bg-yellow-400 text-blue-900 font-bold text-lg py-4 px-12 rounded-full shadow-lg shadow-yellow-500/30 transform transition hover:scale-105 uppercase tracking-wide">
+            Nộp hồ sơ ngay
+        </a>
+    </div>
+
+</div>
+
+<div class="bg-gray-50 py-10 border-t border-gray-200">
+    <div class="container mx-auto px-4 text-center max-w-3xl">
+        <h4 class="font-bold text-gray-700 mb-2">Lưu ý về hồ sơ:</h4>
+        <p class="text-gray-500 text-sm leading-relaxed">
+            Học viên cần chuẩn bị đầy đủ hồ sơ theo hướng dẫn của nhà trường. 
+            Mọi thắc mắc vui lòng liên hệ Hotline 
+            <a href="tel:0919240116" class="text-blue-600 font-bold hover:underline">0919.240.116</a> 
+            để được hỗ trợ kịp thời.
+        </p>
+    </div>
+</div>

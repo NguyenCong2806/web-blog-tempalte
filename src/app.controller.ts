@@ -40,7 +40,6 @@ export class AppController {
     @Inject(ICardNumbersService) private readonly cardNumbersService: ICardNumbersService,
     @Inject(IFeedbackService) private readonly feedbackService: IFeedbackService,
     @Inject(IMajorsnoteService) private readonly majorsnoteService : IMajorsnoteService,
-    @Inject(ICtaService) private readonly ctaService : ICtaService,
   ) { }
 
   @Get()
@@ -64,9 +63,7 @@ export class AppController {
     const feedbackData = feedbacks.item as Feedback[];
     const majorsnotes = await this.majorsnoteService.findAll(endpoint.majorsnote);
     const majorsnoteData = majorsnotes.item as MajorsNote[];
-
-    const ctas = await this.ctaService.findAll(endpoint.cta);
-    const ctaData = ctas.item as Cta[];
+  
     // Heading onee
     const adsData: Advertisement[] = [
       {
@@ -280,40 +277,7 @@ export class AppController {
         location: 6
       }
     ];
-    const logoData: Logo[] = [
-      {
-        image: "/image/logo-dai-hoc-thai-nguyen.png",
-        link: "/",            // Click vào logo quay về trang chủ
-        width: 176,           // Chiều rộng gốc của ảnh
-        height: 50,           // Chiều cao gốc
-        site: "TNU E-Learning", // Alt text
-        location: 1,          // 1 = Header
-        order: 1
-      },
-      {
-        image: "/image/logo-footer.png",
-        link: "/",
-        location: 2           // 2 = Footer (Sẽ không hiện ở file logo-view.ejs này vì logic filter)
-      }
-    ];
-    const notesData: MajorsNote[] = [
-      {
-        heading: "Lưu ý về Hồ sơ xét tuyển",
-        note: "Thí sinh cần chuẩn bị bản sao công chứng Bằng tốt nghiệp THPT hoặc Trung cấp/Cao đẳng/Đại học kèm theo Bảng điểm tương ứng.\nHạn nộp hồ sơ đợt 1: 30/08/2024.",
-        fontsize: 22,    // Cỡ chữ tiêu đề
-        fontweight: 700, // Đậm
-        site: "ADMISSION",
-        location: 1
-      },
-      {
-        heading: "Chính sách ưu đãi học phí",
-        note: "Giảm 10% học phí toàn khóa cho 100 sinh viên nhập học sớm nhất. Hỗ trợ vay vốn lãi suất 0% trong 12 tháng đầu.",
-        fontsize: 20,
-        fontweight: 600,
-        site: "SCHOLARSHIP",
-        location: 2
-      }
-    ];
+
     // Mock Data ModalPopup
     const popupData: ModalPopup[] = [
       {
@@ -470,7 +434,7 @@ export class AppController {
     return {
       title: "home",
       currentPath: '/',
-      imagedatas: imageData,
+      carousels: imageData,
       headings: heading,
       advertisements: adsData,
       articleheader: articleheader,
@@ -481,12 +445,9 @@ export class AppController {
       majorsnotes: majorsnoteData,
       contacts: contactData,
       courses: coursesData,
-      ctas: ctaData,
       experts: expertData,
       feedbacks: feedbackData,
       partners: partnersData,
-      logos: logoData,
-      
       modalpopups: popupData,
       parallax: parallaxData,
       populars: popularData,

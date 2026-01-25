@@ -1,104 +1,109 @@
-<div class="w-full shadow-sm bg-white border-b border-gray-200">
+<div class="w-full shadow-sm bg-white border-b border-gray-200 sticky top-0 z-[1000]">
   <nav class="max-w-7xl mx-auto px-4 py-3">
     <div class="flex items-center justify-between">
-      <div class="text-lg font-bold navbar-brand pl-0">
+      
+      <div class="text-lg font-bold navbar-brand pl-0 shrink-0">
         <a href="/" class="flex items-center">
-          <img src="/image/logo.png" alt="Site logo" class="h-14 md:h-16 w-auto" />
+          <div><%- include('../components/logo-view.ejs', {logos: typeof logos !== 'undefined' ? logos : []}) %></div>
         </a>
       </div>
 
       <button id="nav-toggle" aria-controls="nav-menu" aria-expanded="false"
-        class="md:hidden inline-flex items-center justify-center p-2 rounded-md focus:outline-none text-gray-600 hover:bg-red-50 hover:text-red-600">
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md focus:outline-none text-gray-600 hover:bg-blue-50 hover:text-blue-600">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
 
-      <ul id="nav-menu" class="hidden md:flex md:justify-evenly md:gap-4 md:items-center font-medium w-full md:w-auto mt-3 md:mt-0">
-        <li>
-          <a href="/" 
-             class="px-3 py-2 rounded-md transition-colors duration-200 <%= currentPath === '/' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50' %>">
-             HOME
-          </a>
-        </li>
+      <ul id="nav-menu" class="hidden md:flex md:justify-end md:gap-1 lg:gap-4 md:items-center font-medium w-full md:w-auto mt-3 md:mt-0">
         
-        <li>
-          <a href="/about" 
-             class="px-3 py-2 rounded-md transition-colors duration-200 <%= currentPath === '/about' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50' %>">
-             ABOUT
-          </a>
-        </li>
+        <% 
+          var safeMenus = (typeof menus !== 'undefined' && menus) ? menus : [];
+          var parentMenus = safeMenus.filter(m => !m.parentId || m.parentId === "");
+        %>
 
-        <li class="group relative">
-          <div class="flex items-center space-x-1 px-3 py-2 rounded-md cursor-pointer transition-colors duration-200 <%= currentPath.startsWith('/major') ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50' %>">
-            <a href="/major" class="font-medium">MAJOR</a>
-            <button class="inline-flex items-center p-1" id="major-toggle" aria-controls="major-dropdown" aria-expanded="false">
-              <svg class="h-4 w-4 transform transition-transform duration-200 md:group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-          </div>
+        <% parentMenus.forEach(function(menu) { %>
+            <% 
+               var menuId = menu.id || menu._id;
+               var childMenus = [];
+               if (menuId) {
+                   childMenus = safeMenus.filter(m => m.parentId && (m.parentId == menuId));
+               }
 
-          <ul id="major-dropdown"
-              class="hidden md:block md:absolute md:w-64 md:top-full md:left-0 md:mt-1 md:invisible md:opacity-0 md:transform md:translate-y-2 md:transition-all md:duration-200 md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0 md:bg-white md:rounded-lg md:shadow-xl md:z-50 md:border md:border-gray-100 overflow-hidden text-left">
-            <li class="border-b last:border-0 border-gray-100">
-              <a href="/major/it" class="block px-4 py-3 transition-colors duration-150 <%= currentPath === '/major/it' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-red-50' %>">
-                Information technology
-              </a>
-            </li>
-            <li class="border-b last:border-0 border-gray-100">
-              <a href="/major/accountant" class="block px-4 py-3 transition-colors duration-150 <%= currentPath === '/major/accountant' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-red-50' %>">
-                Accountant
-              </a>
-            </li>
-            <li class="border-b last:border-0 border-gray-100">
-              <a href="/major/business" class="block px-4 py-3 transition-colors duration-150 <%= currentPath === '/major/business' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-red-50' %>">
-                Business administration
-              </a>
-            </li>
-          </ul>
-        </li>
+               var hasChildren = childMenus.length > 0;
+               var isActive = (currentPath === menu.ariaLabel) || (hasChildren && currentPath.startsWith(menu.ariaLabel));
+               
+               // --- CẤU HÌNH STYLE (DESKTOP) ---
+               // 1. Active: Chữ xanh, Đậm, Gạch chân dưới (border-b-2), Cách chữ 1 chút (pb-1)
+               var activeClass = "text-blue-600 font-bold border-b-2 border-blue-600 pb-1";
+               
+               // 2. Normal: Chữ xám, Hover xanh, Hover gạch chân. 
+               // Lưu ý: Thêm border-b-2 border-transparent để tránh bị nhảy layout khi hover
+               var normalClass = "text-gray-600 font-medium pb-1 border-b-2 border-transparent hover:text-blue-600 hover:border-blue-600 transition-all duration-200";
+            %>
 
-        <li>
-          <a href="/news" 
-             class="px-3 py-2 rounded-md transition-colors duration-200 <%= currentPath.startsWith('/news') ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50' %>">
-             NEWS
-          </a>
-        </li>
+            <% if (!hasChildren) { %>
+                <li>
+                  <a href="<%= menu.link %>" target="<%= menu.target || '_self' %>"
+                     class="px-3 rounded-none whitespace-nowrap <%= isActive ? activeClass : normalClass %>">
+                     <%= menu.title ? menu.title.toUpperCase() : '' %>
+                  </a>
+                </li>
 
-        <li>
-          <a href="/schedule" 
-             class="px-3 py-2 rounded-md transition-colors duration-200 <%= currentPath === '/schedule' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50' %>">
-             SCHEDULE
-          </a>
-        </li>
+            <% } else { %>
+                <li class="group relative">
+                  <div class="flex items-center space-x-1 px-3 cursor-pointer <%= isActive ? activeClass : normalClass %>">
+                    
+                    <a href="<%= hasChildren ? 'javascript:void(0)' : menu.link %>" 
+                       target="<%= menu.target || '_self' %>" 
+                       class="whitespace-nowrap cursor-default">
+                        <%= menu.title ? menu.title.toUpperCase() : '' %>
+                    </a>
+                    
+                    <button class="inline-flex items-center p-0" aria-expanded="false">
+                      <svg class="h-4 w-4 transform transition-transform duration-200 md:group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </button>
+                  </div>
 
-        <li>
-          <a href="/contact" 
-             class="px-3 py-2 rounded-md transition-colors duration-200 <%= currentPath === '/contact' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50' %>">
-             CONTACT
-          </a>
-        </li>
+                  <ul class="hidden md:block md:absolute md:w-64 md:top-full md:left-0 md:mt-3 md:invisible md:opacity-0 md:transform md:translate-y-2 md:transition-all md:duration-200 md:group-hover:visible md:group-hover:opacity-100 md:group-hover:translate-y-0 md:bg-white md:rounded-lg md:shadow-xl md:z-50 md:border md:border-gray-100 overflow-hidden text-left">
+                    <% childMenus.forEach(function(child) { %>
+                        <% 
+                           <!-- var isChildActive = currentPath === child.link; -->
+                           var isChildActive = (currentPath === child.ariaLabel);
+                           var childActive = "text-blue-700 font-bold bg-blue-50";
+                           var childNormal = "text-gray-700 hover:text-blue-600 hover:bg-blue-50";
+                        %>
+                        <li class="border-b last:border-0 border-gray-100">
+                          <a href="<%= child.ariaLabel %>" target="<%= child.target || '_self' %>"
+                             class="block px-4 py-3 transition-colors duration-150 <%= isChildActive ? childActive : childNormal %>">
+                            <%= child.title %>
+                          </a>
+                        </li>
+                    <% }); %>
+                  </ul>
+                </li>
+            <% } %>
 
-        <li>
-          <a href="/register" 
-             class="px-3 py-2 rounded-md transition-colors duration-200 <%= currentPath === '/register' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50' %>">
-             REGISTER
-          </a>
-        </li>
+        <% }); %>
+
       </ul>
     </div>
   </nav>
 </div>
 
-<div id="nav-overlay" class="hidden fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden transition-opacity"></div>
+<div id="nav-overlay" class="hidden fixed inset-0 bg-black bg-opacity-40 z-[1040] md:hidden transition-opacity"></div>
 
-<aside id="nav-panel" class="fixed inset-y-0 left-0 w-72 bg-white z-50 transform -translate-x-full transition-transform duration-300 shadow-xl md:hidden overflow-hidden flex flex-col">
+<aside id="nav-panel" class="fixed inset-y-0 left-0 w-72 bg-white z-[1050] transform -translate-x-full transition-transform duration-300 shadow-xl md:hidden overflow-hidden flex flex-col">
+  
   <div class="p-4 border-b flex items-center justify-between flex-shrink-0">
     <div class="flex items-center space-x-3">
-      <img src="/image/logo.png" alt="Site logo" class="h-12 w-auto" />
+       <div class="h-10 w-auto overflow-hidden">
+          <%- include('../components/logo-view.ejs', {logos: typeof logos !== 'undefined' ? logos : []}) %>
+       </div>
     </div>
-    <button id="nav-close" aria-label="Close menu" class="p-2 text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-md">
+    <button id="nav-close" aria-label="Close menu" class="p-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-md">
       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
@@ -107,69 +112,63 @@
 
   <nav class="p-4 overflow-y-auto flex-1">
     <ul class="space-y-2 text-gray-700 pb-10">
-      <li>
-        <a href="/" class="block px-3 py-2 rounded-md uppercase font-medium transition-colors <%= currentPath === '/' ? 'text-red-700 font-bold bg-red-50' : 'hover:bg-red-50 hover:text-red-600' %>">
-          HOME
-        </a>
-      </li>
       
-      <li>
-        <a href="/about" class="block px-3 py-2 rounded-md uppercase font-medium transition-colors <%= currentPath === '/about' ? 'text-red-700 font-bold bg-red-50' : 'hover:bg-red-50 hover:text-red-600' %>">
-          ABOUT
-        </a>
-      </li>
+      <% parentMenus.forEach(function(menu) { %>
+          <% 
+             var menuId = menu.id || menu._id;
+             var childMenus = [];
+             if (menuId) {
+                 childMenus = safeMenus.filter(m => m.parentId && (m.parentId == menuId));
+             }
 
-      <li>
-        <div class="flex items-center justify-between px-3 py-2 rounded-md cursor-pointer transition-colors <%= currentPath.startsWith('/major') ? 'text-red-700 font-bold bg-red-50' : 'hover:bg-red-50 hover:text-red-600' %>" id="major-row-mobile">
-          <a href="/major" class="uppercase font-medium">MAJOR</a>
-          <button id="major-toggle-mobile" aria-controls="major-submenu-mobile" aria-expanded="false" class="p-1 focus:outline-none hover:bg-red-100 rounded">
-            <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </button>
-        </div>
-        <ul id="major-submenu-mobile" class="hidden mt-1 space-y-1 pl-2 border-l-2 border-gray-100 ml-3">
-          <li>
-            <a href="/major/it" class="block py-2 px-3 rounded-md text-sm uppercase <%= currentPath === '/major/it' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-600 hover:text-red-600 hover:bg-red-50' %>">
-              Information Technology
-            </a>
-          </li>
-          <li>
-            <a href="/major/accountant" class="block py-2 px-3 rounded-md text-sm uppercase <%= currentPath === '/major/accountant' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-600 hover:text-red-600 hover:bg-red-50' %>">
-              Accountant
-            </a>
-          </li>
-          <li>
-            <a href="/major/business" class="block py-2 px-3 rounded-md text-sm uppercase <%= currentPath === '/major/business' ? 'text-red-700 font-bold bg-red-50' : 'text-gray-600 hover:text-red-600 hover:bg-red-50' %>">
-              Business Administration
-            </a>
-          </li>
-        </ul>
-      </li>
+             var hasChildren = childMenus.length > 0;
+             var isActive = (currentPath === menu.ariaLabel) || (hasChildren && currentPath.startsWith(menu.ariaLabel));
+             
+             // --- STYLE MOBILE (Giữ dạng nền để dễ bấm) ---
+             var mActive = "text-blue-700 font-bold bg-blue-50";
+             var mNormal = "hover:bg-blue-50 hover:text-blue-600";
+          %>
 
-      <li>
-        <a href="/schedule" class="block px-3 py-2 rounded-md uppercase font-medium transition-colors <%= currentPath === '/schedule' ? 'text-red-700 font-bold bg-red-50' : 'hover:bg-red-50 hover:text-red-600' %>">
-          SCHEDULE
-        </a>
-      </li>
-      
-      <li>
-        <a href="/register" class="block px-3 py-2 rounded-md uppercase font-medium transition-colors <%= currentPath === '/register' ? 'text-red-700 font-bold bg-red-50' : 'hover:bg-red-50 hover:text-red-600' %>">
-          REGISTER
-        </a>
-      </li>
-      
-      <li>
-        <a href="/news" class="block px-3 py-2 rounded-md uppercase font-medium transition-colors <%= currentPath.startsWith('/news') ? 'text-red-700 font-bold bg-red-50' : 'hover:bg-red-50 hover:text-red-600' %>">
-          NEWS
-        </a>
-      </li>
-      
-      <li>
-        <a href="/contact" class="block px-3 py-2 rounded-md uppercase font-medium transition-colors <%= currentPath === '/contact' ? 'text-red-700 font-bold bg-red-50' : 'hover:bg-red-50 hover:text-red-600' %>">
-          CONTACT
-        </a>
-      </li>
+          <% if (!hasChildren) { %>
+              <li>
+                <a href="<%= menu.ariaLabel %>" target="<%= menu.target || '_self' %>"
+                   class="block px-3 py-2 rounded-md uppercase font-medium transition-colors <%= isActive ? mActive : mNormal %>">
+                  <%= menu.title %>
+                </a>
+              </li>
+
+          <% } else { %>
+              <li>
+                <div class="flex items-center justify-between px-3 py-2 rounded-md cursor-pointer transition-colors <%= isActive ? mActive : mNormal %>"
+                     onclick="const el = document.getElementById('sub-<%= menuId %>'); el.classList.toggle('hidden');">
+                  
+                  <a href="javascript:void(0)" class="uppercase font-medium pointer-events-none"><%= menu.title %></a>
+                  
+                  <button class="p-1 focus:outline-none hover:bg-blue-100 rounded">
+                    <svg class="h-5 w-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <ul id="sub-<%= menuId %>" class="hidden mt-1 space-y-1 pl-2 border-l-2 border-gray-100 ml-3">
+                  <% childMenus.forEach(function(child) { %>
+                      <% 
+                         var isChildActive = currentPath === child.ariaLabel;
+                      %>
+                      <li>
+                        <a href="<%= child.ariaLabel %>" target="<%= child.target || '_self' %>"
+                           class="block py-2 px-3 rounded-md text-sm uppercase <%= isChildActive ? mActive : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' %>">
+                          <%= child.title %>
+                        </a>
+                      </li>
+                  <% }); %>
+                </ul>
+              </li>
+          <% } %>
+
+      <% }); %>
+
     </ul>
   </nav>
 </aside>

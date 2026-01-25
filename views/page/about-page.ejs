@@ -1,20 +1,62 @@
-<div class="container mx-auto">
-  <div class="boxx">
-    <div
-      class="bg-[url('../image/sky.jpg')] w-72 h-72 shadow-md m-6 rounded-md shadow-slate-800 bg-cover bg-center card">
-    </div>
+<style>
+    /* 1. Xử lý Căn Giữa (align-center) */
+    /* Dùng display: table để margin auto hoạt động chuẩn với figure */
+    .prose figure.align-center {
+        margin-left: auto;
+        margin-right: auto;
+        display: table; 
+        clear: both;
+    }
+
+    /* 2. Xử lý Căn Trái (align-left) */
+    .prose figure.align-left {
+        float: left;
+        margin-right: 1.5rem; /* Tạo khoảng cách với chữ bên phải */
+        margin-bottom: 1rem;
+        margin-top: 0.5rem;
+        clear: left;
+    }
+
+    /* 3. Xử lý Căn Phải (align-right) */
+    .prose figure.align-right {
+        float: right;
+        margin-left: 1.5rem; /* Tạo khoảng cách với chữ bên trái */
+        margin-bottom: 1rem;
+        margin-top: 0.5rem;
+        clear: right;
+    }
+
+    /* 4. Fix lỗi ảnh bị méo hoặc quá to khi float */
+    .prose figure.align-left img, 
+    .prose figure.align-right img {
+        max-width: 50vw; /* Giới hạn chiều rộng ảnh khi float để không chiếm hết màn hình */
+    }
+
+    /* 5. Căn chỉnh Caption (chú thích ảnh) */
+    .prose figure figcaption {
+        text-align: center;
+        color: #1a3c6e;
+        font-size: 0.875rem;
+        font-style: italic;
+        margin-top: 0.5rem;
+    }
+</style>
+<div class="w-full bg-[#4097b0] py-10 sm:py-14">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white uppercase drop-shadow-sm">
+      <%= page.heading %>
+    </h1>
   </div>
 </div>
 
-<div class="container mx-auto">
-  <div class="card2">
-    <div class="wrapper">
-      <img class="cover-image" src="./image/Malzahar.jpg" />
-    </div>
-    <img class="title" src="./image/dark_rider-title.png" />
-    <img class="character" src="./image/result_template.png" />
+<div class="container mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 bg-white">
+
+  <div class="prose prose-lg max-w-none text-gray-600 text-justify leading-relaxed mb-10
+                prose-headings:font-bold prose-headings:text-[#1a3c6e] 
+                prose-a:text-blue-600 hover:prose-a:text-blue-500
+                prose-img:rounded-lg prose-img:shadow-md">
+
+    <%- page.content %>
+
   </div>
-</div>
-<div class="container mx-auto">
-  <div><%- include('../components/alerts-view.ejs') %></div>
 </div>

@@ -1,31 +1,62 @@
 <div class="fixed right-0 top-1/2 transform -translate-y-1/2 z-[9999] flex flex-col items-end gap-2 mr-0">
-    
-    <a href="#tu-van" class="group bg-[#e67e22] hover:bg-[#d35400] text-white py-4 px-2 rounded-l-md shadow-lg transition-transform duration-300 hover:-translate-x-1 flex flex-col items-center justify-center gap-2 border-l border-t border-b border-white/20">
-        
-        <i class="fa-solid fa-envelope text-sm rotate-0"></i>
-
-        <span class="text-sm font-bold uppercase tracking-wider whitespace-nowrap" style="writing-mode: vertical-rl; transform: rotate(180deg);">
-            Tư vấn ngay
-        </span>
-    </a>
-
     <div class="flex flex-col gap-3 mr-4 mt-2">
         
-        <a href="#form" class="w-10 h-10 rounded-full bg-[#2980b9] text-white flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300">
-            <i class="fa-solid fa-envelope"></i>
-        </a>
+        <% if (typeof ctas !== 'undefined' && ctas && ctas.length > 0) { %>
+            <% 
+               var sortedCtas = ctas;
+            %>
 
-        <a href="https://zalo.me/0912345678" target="_blank" class="w-10 h-10 rounded-full bg-[#2ecc71] text-white flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300 font-bold font-sans">
-            <i class="fa-solid fa-comment-dots"></i> </a>
+            <% sortedCtas.forEach(function(item) { %>
+                
+                <% 
+                   // --- XỬ LÝ TEXT: Loại bỏ thẻ HTML (<p>, <div>...) ---
+                   var rawText = item.text || "";
+                   var cleanText = rawText.replace(/<[^>]*>?/gm, '').trim(); 
 
-        <a href="tel:0912345678" class="relative w-10 h-10 rounded-full bg-[#c0392b] text-white flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300">
-            <span class="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
-            <i class="fa-solid fa-phone relative z-10"></i>
-        </a>
+                   // --- XỬ LÝ MÀU SẮC ---
+                   var bgColor = "bg-[#2980b9]"; 
+                   var isPhone = false;
+                   var link = item.link ? item.link.toLowerCase() : "";
 
-        <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-[#1877f2] text-white flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300">
-            <i class="fa-brands fa-facebook-f"></i>
-        </a>
+                   if (link.includes('zalo')) {
+                       bgColor = "bg-[#2ecc71]"; 
+                   } else if (link.includes('facebook') || link.includes('messenger')) {
+                       bgColor = "bg-[#1877f2]"; 
+                   } else if (link.includes('tel:')) {
+                       bgColor = "bg-[#c0392b]"; 
+                       isPhone = true;
+                   } else if (link.includes('youtube')) {
+                       bgColor = "bg-[#ff0000]";
+                   } else if (link.includes('tiktok')) {
+                       bgColor = "bg-black";
+                   }
+                %>
+
+                <a href="<%= item.link %>" 
+                   target="<%= link.startsWith('tel:') ? '_self' : '_blank' %>"
+                   class="w-10 h-10 rounded-full <%= bgColor %> text-white flex items-center justify-center shadow-md hover:scale-110 transition-transform duration-300 relative group border-2 border-white">
+                    
+                    <% if (isPhone) { %>
+                        <span class="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping"></span>
+                    <% } %>
+
+                    <% if (item.icon && (item.icon.startsWith('http') || item.icon.startsWith('/'))) { %>
+                        <img src="<%= item.icon %>" alt="icon" class="w-5 h-5 object-contain filter brightness-0 invert" /> 
+                    <% } else { %>
+                        <i class="<%= item.icon || 'fa-solid fa-link' %> text-lg relative z-10"></i>
+                    <% } %>
+
+                    <% if (cleanText) { %>
+                        <span class="absolute right-full mr-3 px-3 py-1.5 bg-gray-800 text-white text-xs font-medium rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-sm z-50">
+                           <%= cleanText %>
+                           <span class="absolute top-1/2 -right-1 -mt-1 border-4 border-transparent border-l-gray-800"></span>
+                        </span>
+                    <% } %>
+
+                </a>
+
+            <% }); %>
+        <% } %>
 
     </div>
 

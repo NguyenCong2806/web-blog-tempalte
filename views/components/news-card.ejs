@@ -1,10 +1,53 @@
-<div class="bg-white rounded-lg shadow-md overflow-hidden">
-  <img src="<%= newsItem.image %>" alt="<%= newsItem.title %>" class="w-full h-48 object-cover">
-  <div class="p-4">
-    <h2 class="text-xl font-semibold mb-2"><a href="/news/detail/<%= newsItem.id %>" class="hover:text-blue-600"><%= newsItem.title %></a></h2>
-    <p class="text-gray-600 mb-4"><%= newsItem.description %></p>
-    <div class="text-sm text-gray-500">
-      <span><%= newsItem.author %></span> | <span><%= new Date(newsItem.publishDate).toLocaleDateString() %></span>
+<%
+// Hàm trợ giúp nhỏ để định dạng ngày tháng an toàn
+const formatDate = (dateString) => {
+  if (!dateString) return 'Đang cập nhật';
+  try {
+    const date = new Date(dateString);
+    // Kiểm tra xem ngày có hợp lệ không sau khi parse
+    if (isNaN(date.getTime())) return 'Ngày không hợp lệ';
+    return date.toLocaleDateString('vi-VN');
+  } catch (e) {
+    return 'Lỗi ngày tháng';
+  }
+}
+
+// Link ảnh mặc định nếu bài viết không có ảnh
+const fallbackImage = 'https://placehold.co/600x400?text=No+Image';
+%>
+
+<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+    
+    <div class="h-48 overflow-hidden relative flex-shrink-0">
+      <a href="/tin-tuc/<%= newsItem.slug || newsItem.id %>">
+        <img 
+            src="<%= newsItem.img ? newsItem.img : fallbackImage %>" 
+            alt="<%= newsItem.title %>" 
+            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            onerror="this.onerror=null;this.src='<%= fallbackImage %>';"
+        >
+      </a>
     </div>
-  </div>
+
+    <div class="p-4 flex flex-col flex-grow">
+        <h2 class="text-lg font-bold mb-2 leading-tight line-clamp-2" title="<%= newsItem.title %>">
+            <a href="/tin-tuc/<%= newsItem.slug || newsItem.id %>" class="hover:text-blue-600 transition-colors">
+                <%= newsItem.title %>
+            </a>
+        </h2>
+
+        <p class="text-gray-600 text-sm line-clamp-3 flex-grow mb-4">
+            <%= newsItem.description %>
+        </p>
+
+        <div class="text-xs text-gray-500 pt-3 border-t border-gray-100 flex justify-between items-center mt-auto flex-shrink-0">
+            <span class="font-medium truncate pr-2">
+                <i class="fa-solid fa-user mr-1"></i> <%= newsItem.author || 'Admin' %>
+            </span>
+            
+            <span class="whitespace-nowrap flex-shrink-0">
+                <i class="fa-regular fa-clock mr-1"></i> <%= formatDate(newsItem.createdAt) %>
+            </span>
+        </div>
+    </div>
 </div>
