@@ -20,7 +20,9 @@
     <main><%- body %></main>
 
     <%- include('../partials/footer.ejs') %>
+    <div><%- include('../components/cta.ejs',{ctas: ctas}) %></div>
   </body>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script src="/js/main.js"></script>
 </html>

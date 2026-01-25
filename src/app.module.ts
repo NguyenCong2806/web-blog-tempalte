@@ -1,9 +1,8 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AboutModule } from './modules/about/about.module';
-import { NewsModule } from './modules/news/news.module';
 import { ICarouselService } from './service/carousel/ICarousel.Service';
 import { CarouselService } from './service/carousel/Carousel.Service';
 import { IArticleheaderService } from './service/articleheader/IArticleheader.Service';
@@ -20,13 +19,31 @@ import { FeedbackService } from './service/feedback/Feedback.Service';
 import { IFeedbackService } from './service/feedback/IFeedback.Service';
 import { IMajorsnoteService } from './service/majorsnote/IMajorsnote.Service';
 import { MajorsnoteService } from './service/majorsnote/Majorsnote.Service';
-import { CtaService } from './service/cta/Cta.Service';
-import { ICtaService } from './service/cta/ICta.Service';
+import { LogoService } from './service/logo/logo.Service';
+import { ILogoService } from './service/logo/ILogo.Service';
+import { LogoModule } from './modules/logo/logo.module';
+import { LogoMiddleware } from './middlewares/logo.middleware';
+import { MenuModule } from './modules/menu/menu.module';
+import { MenuMiddleware } from './middlewares/menu.middleware';
+import { ContentModule } from './modules/content/content.module';
+import { CtaModule } from './modules/cta/cta.module';
+import { CtaMiddleware } from './middlewares/cta.middleware';
+import { PageContentModule } from './modules/major/major.module';
+import { RegisterModule } from './modules/register/register.module';
+import { ContactModule } from './modules/contact/contact.module';
+import { ScheduleModule } from './modules/schedule/schedule.module';
 
 @Module({
   imports: [
+    CtaModule,
+    LogoModule,
+    MenuModule,
     AboutModule,
-    NewsModule,
+    ContentModule,
+    PageContentModule,
+    RegisterModule,
+    ContactModule,
+    ScheduleModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -65,9 +82,9 @@ import { ICtaService } from './service/cta/ICta.Service';
       provide: IMajorsnoteService,
       useClass: MajorsnoteService,
     },
-     {
-      provide: ICtaService,
-      useClass: CtaService,
+    {
+      provide: ILogoService,
+      useClass: LogoService,
     }
   ],
   exports: [
@@ -75,4 +92,10 @@ import { ICtaService } from './service/cta/ICta.Service';
     IArticleheaderService
   ],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LogoMiddleware,MenuMiddleware,CtaMiddleware)
+      .forRoutes('*');
+  }
+}

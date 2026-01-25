@@ -18,4 +18,5 @@ export class Content {
   social?: SocialInfo;
   site?: string;
   location?: number;
+  createddate?: Date;
 }

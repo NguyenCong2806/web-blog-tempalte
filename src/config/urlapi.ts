@@ -53,11 +53,12 @@ export const endpoint = {
   parallax: "parallax/getalls",
   modalpopup: "modalpopup/getalls",
   // Url API Content
-  content: "content/getalls",
+  content: "content",
+  contentgetBySlug: "content/slug",
   // Url API Menu
   menu: "menu/getalls",
   // Url API PageContent
-  pagecontent: "pagecontent/getalls",
+  pagecontent: "pagecontent",
   // Url API SystemConfig //
   systemconfig: "systemconfig/getalls",
   // file //
