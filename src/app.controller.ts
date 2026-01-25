@@ -6,11 +6,9 @@ import { BoxImageText } from './models/viewmodel/boxImagetext/BoxImageText';
 import { Card } from './models/viewmodel/card/Card';
 import { Contact } from './models/viewmodel/contact/Contact';
 import { Courses } from './models/viewmodel/courses/Courses';
-import { Cta } from './models/viewmodel/cta/Cta';
 import { Expert } from './models/viewmodel/expert/Expert';
 import { Feedback } from './models/viewmodel/feedback/Feedback';
 import { ImageListInfo } from './models/viewmodel/imagelistInfo/ImageListInfo';
-import { Logo } from './models/viewmodel/logo/Logo';
 import { MajorsNote } from './models/viewmodel/majorsnote/MajorsNote';
 import { ModalPopup } from './models/viewmodel/modalpopup/ModalPopup';
 import { Parallax } from './models/viewmodel/parallax/Parallax';
@@ -27,7 +25,7 @@ import { Accordion } from './models/viewmodel/accordion/Accordion';
 import { CardNumbers } from './models/viewmodel/cardnumbers/CardNumbers';
 import { IFeedbackService } from './service/feedback/IFeedback.Service';
 import { IMajorsnoteService } from './service/majorsnote/IMajorsnote.Service';
-import { ICtaService } from './service/cta/ICta.Service';
+import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
 
 @Controller()
 export class AppController {
@@ -40,6 +38,7 @@ export class AppController {
     @Inject(ICardNumbersService) private readonly cardNumbersService: ICardNumbersService,
     @Inject(IFeedbackService) private readonly feedbackService: IFeedbackService,
     @Inject(IMajorsnoteService) private readonly majorsnoteService : IMajorsnoteService,
+    @Inject(IModalPopupService) private readonly modalPopupService : IModalPopupService,
   ) { }
 
   @Get()
@@ -63,7 +62,9 @@ export class AppController {
     const feedbackData = feedbacks.item as Feedback[];
     const majorsnotes = await this.majorsnoteService.findAll(endpoint.majorsnote);
     const majorsnoteData = majorsnotes.item as MajorsNote[];
-  
+    const modalPopups = await this.modalPopupService.findAll(endpoint.modalpopup);
+    const modalPopupData = modalPopups.item as ModalPopup[];
+
     // Heading onee
     const adsData: Advertisement[] = [
       {
@@ -277,36 +278,6 @@ export class AppController {
         location: 6
       }
     ];
-
-    // Mock Data ModalPopup
-    const popupData: ModalPopup[] = [
-      {
-        // Popup 1: Quảng cáo lớn (Hiện ngay)
-        titel: "Siêu ưu đãi tháng 8",
-        note: "Giảm 30% học phí cho tân sinh viên đăng ký trước ngày 30/08.",
-        image: "/images/popups/banner-khuyen-mai.jpg",
-        link: "/khuyen-mai",
-        isshow: true,
-        position: 1, // Giữa màn hình
-        site: "HOT",
-        // Hiện ngay lập tức
-        scrollstart: 0
-      },
-      {
-        // Popup 2: Thông báo nhỏ (Hiện khi cuộn 30%)
-        titel: "Cần tư vấn ngay?",
-        image: "/images/avatars/support-avatar.jpg",
-        link: "https://zalo.me/...",
-        isshow: true,
-        position: 2, // Góc phải dưới
-        site: "SUPPORT",
-        // Logic: Cuộn 30% trang mới hiện
-        scrollstart: 30,
-        // Logic: Chỉ hiện trong năm 2024 (Ví dụ)
-        timestart: new Date('2024-01-01').getTime(),
-        timeend: new Date('2024-12-31').getTime()
-      }
-    ];
     const parallaxData: Parallax[] = [
       {
         bgimage: "/images/backgrounds/campus-bg.jpg",
@@ -448,7 +419,7 @@ export class AppController {
       experts: expertData,
       feedbacks: feedbackData,
       partners: partnersData,
-      modalpopups: popupData,
+      modalpopups: modalPopupData,
       parallax: parallaxData,
       populars: popularData,
       tabs: tabsData

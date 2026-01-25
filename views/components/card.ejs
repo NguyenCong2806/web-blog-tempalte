@@ -1,28 +1,28 @@
-<section class="py-12 bg-white">
-  <div class="container mx-auto px-4">
+<section class="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white via-slate-50 to-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
 
       <% if (typeof cards !=='undefined' && cards.length> 0) { %>
         <% cards.forEach(function(item, index) { %>
-          <div class="bg-[#f4fbfc] border border-[#ccecf1] rounded-lg p-6 md:p-8 flex items-start gap-6 hover:shadow-lg transition-all duration-300 group" data-aos="<%= index % 2 === 0 ? 'fade-left' : 'fade-right' %>">
+          <div class="group bg-gradient-to-br from-[#f4fbfc] to-[#e8f7fb] border border-[#b3dce4] rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-6 hover:shadow-xl hover:border-[#0e5c69] transition-all duration-500 transform hover:-translate-y-1" data-aos="<%= index % 2 === 0 ? 'fade-left' : 'fade-right' %>">
 
-            <div class="shrink-0">
-               <i class="<%= item.icon %> text-[#0e5c69] transition-transform duration-300 group-hover:scale-110" 
-                  style="font-size: 70px; line-height: 1; color: darkolivegreen;">
-               </i>
+            <div class="shrink-0 flex items-center justify-center">
+               <div class="p-4 sm:p-5 bg-white rounded-2xl shadow-sm group-hover:shadow-lg group-hover:scale-110 transition-all duration-500">
+                 <i class="<%= item.icon %> text-[#0e5c69] text-4xl sm:text-5xl lg:text-4xl xl:text-5xl leading-none"></i>
+               </div>
             </div>
 
             <div class="flex-1 min-w-0">
               
               <% if (item.title) { %>
-                <h3 class="text-xl md:text-2xl font-bold text-[#0e5c69] mb-3 leading-snug">
+                <h3 class="text-lg sm:text-xl lg:text-lg xl:text-xl font-bold text-[#0e5c69] mb-3 leading-snug group-hover:text-teal-700 transition-colors duration-300">
                   <%= item.title %>
                 </h3>
               <% } %>
 
               <% if (item.detail) { %>
-                <div class="text-slate-600 text-sm md:text-base leading-relaxed font-light [&>p]:mb-0">
+                <div class="text-gray-600 text-sm sm:text-base leading-relaxed font-normal [&>p]:mb-0 [&>p]:text-inherit">
                   <%- item.detail %>
                 </div>
               <% } %>

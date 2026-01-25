@@ -1,9 +1,9 @@
-<section class="relative py-20 lg:py-28">
-  <div class="container mx-auto px-4 relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<section class="relative py-12 sm:py-16 md:py-20 lg:py-28 bg-gradient-to-r from-white via-slate-50 to-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
       <div class="lg:col-span-7">
-        <div class="border rounded-xl p-8 bg-slate-200" data-aos="fade-up">
-          <ul class="space-y-5">
+        <div class="border-2 border-slate-300 rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-12 bg-gradient-to-br from-slate-50 to-slate-100 shadow-lg hover:shadow-2xl transition-all duration-500 group" data-aos="fade-up">
+          <ul class="space-y-5 sm:space-y-6 md:space-y-7">
             
             <% if (typeof majorsnotes !== 'undefined' && majorsnotes.length > 0) { %>
                 <% majorsnotes.forEach(function(item) { %>
@@ -19,13 +19,13 @@
                       }
                    %>
 
-                   <% lines.forEach(function(line) { %>
-                      <li class="flex items-start gap-4">
-                        <div class="shrink-0 mt-1">
-                          <i class="fa-solid fa-star text-orange-500 text-lg sm:text-xl drop-shadow-md"></i>
+                   <% lines.forEach(function(line, idx) { %>
+                      <li class="flex items-start gap-4 sm:gap-5 md:gap-6 group/item transition-all duration-300 hover:translate-x-2">
+                        <div class="shrink-0 mt-1.5 sm:mt-2">
+                          <i class="fa-solid fa-star text-orange-500 text-lg sm:text-xl drop-shadow-md group-hover/item:text-orange-600 group-hover/item:scale-125 transition-all duration-300"></i>
                         </div>
                         
-                        <span class="text-base sm:text-lg font-medium leading-relaxed">
+                        <span class="text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-gray-700 group-hover/item:text-gray-900 transition-colors duration-300">
                           <%- line %>
                         </span>
                       </li>

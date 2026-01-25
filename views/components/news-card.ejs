@@ -16,38 +16,51 @@ const formatDate = (dateString) => {
 const fallbackImage = 'https://placehold.co/600x400?text=No+Image';
 %>
 
-<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+<div class="bg-white rounded-2xl sm:rounded-3xl shadow-md hover:shadow-2xl overflow-hidden transition-all duration-500 h-full flex flex-col transform hover:-translate-y-2 border border-gray-100 hover:border-teal-200 group">
     
-    <div class="h-48 overflow-hidden relative flex-shrink-0">
-      <a href="/tin-tuc/<%= newsItem.slug || newsItem.id %>">
+    <div class="h-40 sm:h-48 md:h-56 overflow-hidden relative flex-shrink-0 bg-gray-900">
+      <a href="/tin-tuc/<%= newsItem.slug || newsItem.id %>" class="block h-full w-full group/image">
         <img 
             src="<%= newsItem.img ? newsItem.img : fallbackImage %>" 
             alt="<%= newsItem.title %>" 
-            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/image:scale-110"
+            loading="lazy"
+            decoding="async"
             onerror="this.onerror=null;this.src='<%= fallbackImage %>';"
         >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300"></div>
       </a>
     </div>
 
-    <div class="p-4 flex flex-col flex-grow">
-        <h2 class="text-lg font-bold mb-2 leading-tight line-clamp-2" title="<%= newsItem.title %>">
-            <a href="/tin-tuc/<%= newsItem.slug || newsItem.id %>" class="hover:text-blue-600 transition-colors">
+    <div class="p-5 sm:p-6 md:p-7 flex flex-col flex-grow">
+        <h2 class="text-base sm:text-lg md:text-xl font-bold mb-3 leading-snug line-clamp-2 group-hover:text-teal-600 transition-colors duration-300" title="<%= newsItem.title %>">
+            <a href="/tin-tuc/<%= newsItem.slug || newsItem.id %>" class="hover:underline">
                 <%= newsItem.title %>
             </a>
         </h2>
 
-        <p class="text-gray-600 text-sm line-clamp-3 flex-grow mb-4">
+        <p class="text-gray-600 text-xs sm:text-sm line-clamp-3 flex-grow mb-4 sm:mb-5 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
             <%= newsItem.description %>
         </p>
 
-        <div class="text-xs text-gray-500 pt-3 border-t border-gray-100 flex justify-between items-center mt-auto flex-shrink-0">
-            <span class="font-medium truncate pr-2">
-                <i class="fa-solid fa-user mr-1"></i> <%= newsItem.author || 'Admin' %>
-            </span>
-            
-            <span class="whitespace-nowrap flex-shrink-0">
-                <i class="fa-regular fa-clock mr-1"></i> <%= formatDate(newsItem.createdAt) %>
-            </span>
+        <div class="border-t border-gray-100 pt-4 sm:pt-5 mt-auto">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-xs sm:text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+              <div class="flex items-center gap-1.5 truncate">
+                <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-user text-teal-600 text-[10px] sm:text-xs"></i>
+                </div>
+                <span class="font-semibold truncate">
+                    <%= newsItem.author || 'Admin' %>
+                </span>
+              </div>
+              
+              <div class="flex items-center gap-1.5 flex-shrink-0">
+                <i class="fa-regular fa-calendar text-orange-400 text-xs sm:text-sm"></i>
+                <span class="font-semibold whitespace-nowrap">
+                    <%= formatDate(newsItem.createdAt) %>
+                </span>
+              </div>
+          </div>
         </div>
     </div>
 </div>

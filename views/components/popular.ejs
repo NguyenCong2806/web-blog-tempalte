@@ -1,23 +1,121 @@
-<section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4">
+<section class="py-12 sm:py-16 md:py-20 lg:py-28 bg-gradient-to-b from-gray-50 to-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     
-    <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4" data-aos="fade-up">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 sm:mb-14 md:mb-16 lg:mb-20 gap-4" data-aos="fade-up">
       <div>
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 transition-all duration-500 hover:text-teal-700">
           Khóa học Nổi bật & Phổ biến
         </h2>
-        <div class="h-1 w-20 bg-teal-500 rounded-full"></div>
+        <div class="h-1.5 w-20 sm:w-24 md:w-28 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full shadow-md"></div>
       </div>
       
-      <a href="/khoa-hoc" class="text-teal-600 font-bold hover:text-teal-800 flex items-center gap-1 transition-colors">
+      <a href="/khoa-hoc" class="text-teal-600 font-bold hover:text-teal-800 text-sm sm:text-base flex items-center gap-2 transition-all duration-300 group hover:gap-3">
         Xem tất cả
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 transform group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
         </svg>
       </a>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
+      
+      <% if (typeof populars !== 'undefined' && populars.length > 0) { %>
+        <% 
+           // Sắp xếp theo location
+           populars.sort((a, b) => (a.location || 999) - (b.location || 999));
+        %>
+
+        <% populars.forEach(function(item, index) { %>
+          
+          <div class="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-teal-200 flex flex-col h-full transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="<%= index * 100 %>">
+            
+            <div class="relative h-40 sm:h-48 md:h-56 overflow-hidden bg-gray-900">
+              <a href="<%= item.link || '#' %>" class="block h-full w-full">
+                <img 
+                  src="<%= item.img || '/images/course-default.jpg' %>" 
+                  alt="<%= item.title %>" 
+                  class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  loading="lazy"
+                  decoding="async"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </a>
+
+              <% if (item.site) { %>
+                <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-md">
+                  <%= item.site %>
+                </div>
+              <% } %>
+
+              <% if (item.price !== undefined) { %>
+                <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm text-teal-700 font-bold px-3 py-1.5 rounded-full shadow-lg text-xs sm:text-sm border border-gray-200 group-hover:bg-teal-600 group-hover:text-white transition-all duration-300">
+                  <% if (item.price === 0) { %>
+                    Miễn phí
+                  <% } else { %>
+                    <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price) %>
+                  <% } %>
+                </div>
+              <% } %>
+            </div>
+
+            <div class="p-5 sm:p-6 md:p-7 flex flex-col flex-grow">
+              
+              <div class="flex items-center gap-2.5 mb-4 sm:mb-5">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border-2 border-gray-200 shadow-sm group-hover:border-teal-300 transition-colors duration-300 flex-shrink-0">
+                  <img src="<%= item.icon || '/images/avatars/default.png' %>" alt="Author" class="w-full h-full object-cover">
+                </div>
+                <span class="text-xs sm:text-sm text-gray-600 font-medium truncate group-hover:text-gray-800 transition-colors duration-300">
+                  <%= item.author || 'Giảng viên' %>
+                </span>
+              </div>
+
+              <h3 class="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-3 sm:mb-4 line-clamp-2 group-hover:text-teal-600 transition-colors duration-300">
+                <a href="<%= item.link || '#' %>" class="hover:underline">
+                  <%= item.title %>
+                </a>
+              </h3>
+
+              <% if (item.detail) { %>
+                <p class="text-xs sm:text-sm text-gray-600 line-clamp-2 mb-4 sm:mb-5 flex-grow leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                  <%= item.detail %>
+                </p>
+              <% } %>
+
+              <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent mb-4 sm:mb-5 group-hover:via-teal-200 transition-colors duration-300"></div>
+
+              <div class="flex items-center justify-between text-xs sm:text-sm text-gray-600 font-medium gap-2">
+                
+                <% if (item.time) { %>
+                  <div class="flex items-center gap-1.5 group-hover:text-orange-500 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 group-hover:text-orange-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                    </svg>
+                    <span><%= item.time %> giờ</span>
+                  </div>
+                <% } %>
+
+                <% if (item.quantity) { %>
+                  <div class="flex items-center gap-1.5 group-hover:text-blue-500 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 group-hover:text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                    </svg>
+                    <span><%= item.quantity %></span>
+                  </div>
+                <% } %>
+
+              </div>
+
+            </div>
+          </div>
+
+        <% }); %>
+      <% } else { %>
+        <p class="col-span-full text-center text-gray-400 py-8">Đang cập nhật danh sách...</p>
+      <% } %>
+
+    </div>
+  </div>
+</section>
       
       <% if (typeof populars !== 'undefined' && populars.length > 0) { %>
         <% 
