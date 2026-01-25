@@ -32,6 +32,8 @@ import { PageContentModule } from './modules/major/major.module';
 import { RegisterModule } from './modules/register/register.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { ScheduleModule } from './modules/schedule/schedule.module';
+import { ModalPopupService } from './service/modalpopup/ModalPopup.Service';
+import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
 
 @Module({
   imports: [
@@ -85,6 +87,9 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
     {
       provide: ILogoService,
       useClass: LogoService,
+    }, {
+      provide: IModalPopupService,
+      useClass: ModalPopupService,
     }
   ],
   exports: [
@@ -95,7 +100,7 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(LogoMiddleware,MenuMiddleware,CtaMiddleware)
+      .apply(LogoMiddleware, MenuMiddleware, CtaMiddleware)
       .forRoutes('*');
   }
 }
