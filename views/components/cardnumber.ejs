@@ -1,15 +1,15 @@
 <div class="w-full" style="background: linear-gradient(135deg, #152e4d 0%, #1a4f66 100%); color: white;">
 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-28 text-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 text-center">
         
-        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase mb-4 sm:mb-6 tracking-wider drop-shadow-lg transition-all duration-500 hover:scale-105" style="color: #ffffff;">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase mb-3 sm:mb-4 tracking-wider drop-shadow-lg transition-all duration-500 hover:scale-105" style="color: #ffffff;">
             NHỮNG CON SỐ ẤN TƯỢNG
         </h2>
-        <p class="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20 lg:mb-28 font-light opacity-90 leading-relaxed" style="color: #e2e8f0;">
+        <p class="text-sm sm:text-base md:text-lg max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16 font-light opacity-90 leading-relaxed" style="color: #e2e8f0;">
             Cùng xem những thành tựu nổi bật và sự phát triển không ngừng của chúng tôi trong suốt thời gian vừa qua
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 md:gap-16 lg:gap-20">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
             <% 
                const defaults = [
                     { text: 'Ngành học trực tuyến', end: 9, suffix: '+', prefix: '' },
@@ -22,9 +22,9 @@
             %>
 
             <% items.forEach(function(item) { %>
-                <div class="flex flex-col items-center justify-center group relative p-4 transition-transform duration-500 hover:scale-110">
+                <div class="flex flex-col items-center justify-center group relative p-3 transition-transform duration-500 hover:scale-105">
                     
-                    <div class="counter text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-4 sm:mb-6 drop-shadow-2xl transition-all duration-500 group-hover:text-orange-300"
+                    <div class="counter text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 drop-shadow-2xl transition-all duration-500 group-hover:text-orange-300"
                          style="color: #ffffff; line-height: 1; text-shadow: 0 4px 12px rgba(0,0,0,0.3);"
                          data-target="<%= item.end || item.count || 0 %>" 
                          data-suffix="<%= item.suffix || '' %>"
@@ -32,7 +32,7 @@
                         0
                     </div>
                     
-                    <div class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-widest border-t-2 pt-4 sm:pt-5 mt-2 sm:mt-3 transition-colors duration-300 group-hover:border-orange-300 group-hover:text-orange-300" 
+                    <div class="text-xs sm:text-sm md:text-base lg:text-lg font-bold uppercase tracking-widest border-t-2 pt-3 sm:pt-4 mt-2 sm:mt-3 transition-colors duration-300 group-hover:border-orange-300 group-hover:text-orange-300" 
                          style="color: #ff5722; border-color: #ff5722;">
                         <%= item.text || item.label || 'N/A' %>
                     </div>
