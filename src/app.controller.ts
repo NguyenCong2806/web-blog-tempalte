@@ -78,6 +78,8 @@ export class AppController {
       articleHeaderaccordion: headers[2],
       accordions: accordionData,
       cardnumbers: cardnumbers,
+      ///section majorsnote
+      articleHeadermajorsnote: headers[3],
       majorsnotes: majorsnoteData,
       feedbacks: feedbackData,
       modalPopups: modalPopupData
