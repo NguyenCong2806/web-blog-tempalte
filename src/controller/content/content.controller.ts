@@ -14,7 +14,7 @@ export class ContentController {
     @Render('page/news-list-page')
     async getPage(@Query() query: any): Promise<object> {
         const pageIndex = query.pageindex ? Number(query.pageindex) : 1;
-        const pageSize = query.pagesize ? Number(query.pagesize) : 3;
+        const pageSize = query.pagesize ? Number(query.pagesize) : 10;
         const keyword = query.keyword || '';
         const contents = await this.contentService.findAlls(endpoint.content, {
             pageindex: pageIndex, // Sửa pageindex -> pageIndex

@@ -1,0 +1,16 @@
+<% if (typeof note !== 'undefined' && note) { %>
+    <% 
+        // Xử lý chuỗi HTML bị mã hóa
+        let rawHtml = note || "";
+        let decodedHtml = rawHtml
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/&quot;/g, '"')
+            .replace(/&amp;/g, '&');
+        let finalHtml = decodedHtml.replace(/^<p>|<\/p>$/g, '');
+    %>
+    
+    <div class="prose prose-sm max-w-none text-gray-700 leading-relaxed px-4 py-6 bg-white rounded-lg border border-gray-100">
+        <%- finalHtml %>
+    </div>
+<% } %>

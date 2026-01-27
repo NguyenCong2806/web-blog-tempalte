@@ -3,19 +3,10 @@
   <% modalPopups.forEach(function(item) { %>
     
     <% 
-        // Xử lý chuỗi HTML bị mã hóa
-        let rawHtml = item.note || ""; 
-        let decodedHtml = rawHtml
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&quot;/g, '"')
-            .replace(/&amp;/g, '&');
-        let finalHtml = decodedHtml.replace(/^<p>|<\/p>$/g, '');
-        
         // Tạo ID ngẫu nhiên nếu không có
         let modalId = item._id || Math.random().toString(36).substr(2, 9);
         
-        // 👇 SỬA LẠI TÊN BIẾN CHO KHỚP DATA (Viết thường)
+        // SỬA LẠI TÊN BIẾN CHO KHỚP DATA (Viết thường)
         let pos = item.position || 1;
         let tStart = item.timestart || 0;
         let tEnd = item.timeend || 0;
@@ -39,8 +30,8 @@
                     <button class="btn-close absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-red-100 text-gray-500 hover:text-red-600 rounded-full cursor-pointer transition-colors">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
-                    <div class="p-2">
-                        <%- finalHtml %>
+                    <div class="p-6">
+                        <%- include('./form-detai.ejs', {note: item.note}) %>
                     </div>
                 </div>
             </div>
@@ -55,7 +46,7 @@
                         </button>
                     </div>
                     <div class="p-4 max-h-[60vh] overflow-y-auto">
-                        <%- finalHtml %>
+                        <%- include('./form-detai.ejs', {note: item.note}) %>
                     </div>
                 </div>
             </div>
