@@ -34,6 +34,7 @@ import { ContactModule } from './modules/contact/contact.module';
 import { ScheduleModule } from './modules/schedule/schedule.module';
 import { ModalPopupService } from './service/modalpopup/ModalPopup.Service';
 import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
+import { SitemapModule } from './modules/sitemap/sitemap.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
     RegisterModule,
     ContactModule,
     ScheduleModule,
+    SitemapModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

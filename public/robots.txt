@@ -1,0 +1,32 @@
+# Robots.txt for web-blog-template
+#
+# HƯỚNG DẪN SỬ DỤNG:
+# ==================
+# 1. Thay domain trong .env → BASE_URL=https://yourdomain.com
+# 2. Khởi động app → robots.txt tự động có domain đúng
+# 3. Submit lên Google Search Console:
+#    - Vào: https://search.google.com/search-console
+#    - Thêm sitemap: https://yourdomain.com/sitemap.xml
+#
+# ROUTES CÓ SẴN:
+# ==============
+# GET /robots.txt   - Phục vụ file này (tự động thay domain từ .env)
+# GET /sitemap.xml  - Phục vụ sitemap XML (tự động tạo từ database)
+#
+
+# Allow all bots
+User-agent: *
+Allow: /
+
+# Disallow admin/private areas (if you have any)
+Disallow: /admin/
+Disallow: /private/
+
+# Crawl-delay (optional, in seconds)
+# Crawl-delay: 1
+
+# Request-rate (optional)
+# Request-rate: 1/10
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
