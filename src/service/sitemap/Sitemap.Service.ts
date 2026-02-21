@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ISitemapServiceInterface } from './ISitemap.Service';
-import { endpoint } from 'src/config/urlapi';
+import { endpoint, site } from 'src/config/urlapi';
 import { IMenuService } from '../menu/IMenu.Service';
 import { IContentService } from '../content/IContentService';
 import { Menu } from 'src/models/viewmodel/menu/Menu';
@@ -47,7 +47,7 @@ export class SitemapService implements ISitemapServiceInterface {
     let dynamicPages: Array<{ url: string; lastmod: string; priority: string }> = [];
     try {
       // Lấy danh sách ngành (major)
-      const menu = await this.menuService.findAll(endpoint.menu);
+      const menu = await this.menuService.findAll(endpoint.menu,site);
 
       if (menu.item && Array.isArray(menu.item)) {
         const menuPages = menu.item.map((item: Menu) => ({
@@ -67,7 +67,7 @@ export class SitemapService implements ISitemapServiceInterface {
     }
     try {
       // Lấy danh sách bài viết
-      const contents = await this.contentService.findAlls(endpoint.content, {
+      const contents = await this.contentService.findAlls(endpoint.content,site, {
         pageindex: 1,
         pagesize: 1000,
         keyword: '',

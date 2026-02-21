@@ -1,14 +1,7 @@
 <div class="w-full" style="background: linear-gradient(135deg, #152e4d 0%, #1a4f66 100%); color: white;">
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 text-center">
-        
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase mb-3 sm:mb-4 tracking-wider drop-shadow-lg transition-all duration-500 hover:scale-105" style="color: #ffffff;">
-            NHỮNG CON SỐ ẤN TƯỢNG
-        </h2>
-        <p class="text-sm sm:text-base md:text-lg max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16 font-light opacity-90 leading-relaxed" style="color: #e2e8f0;">
-            Cùng xem những thành tựu nổi bật và sự phát triển không ngừng của chúng tôi trong suốt thời gian vừa qua
-        </p>
-
+            <section><%- include('./articleheader.ejs',{articleHeader: articleHeadercardnumbers}) %></section>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
             <% 
                const defaults = [

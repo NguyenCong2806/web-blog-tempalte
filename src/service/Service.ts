@@ -19,22 +19,22 @@ abstract class Service<T, ID = string | number> implements IService<T, ID> {
       // withCredentials: true // Bạn có thể bật dòng này nếu API public cần cookie, nếu không thì comment lại
     });
   }
-  async findAlls(url: string, data: SearchParams): Promise<Results<T>> {
-    return (await this.axiosinstance.get<Results<T>>(`/${url}`, { params: data })).data;
+  async findAlls(url: string,site:string, data: SearchParams): Promise<Results<T>> {
+    return (await this.axiosinstance.get<Results<T>>(`/${url}`, { params: { ...data, site } })).data;
   }
 
-  async findAll(url: string): Promise<ResultData<T>> {
-    return (await this.axiosinstance.get<ResultData<T>>(`/${url}`)).data;
+  async findAll(url: string,site:string): Promise<ResultData<T>> {
+    return (await this.axiosinstance.get<ResultData<T>>(`/${url}`, { params: { site } })).data;
   }
 
-  async findById(url: string, id: ID): Promise<ResultData<T>> {
-    return (await this.axiosinstance.get<ResultData<T>>(`/${url}/${id}`)).data;
+  async findById(url: string,site:string, id: ID): Promise<ResultData<T>> {
+    return (await this.axiosinstance.get<ResultData<T>>(`/${url}/${id}`, { params: { site } })).data;
   }
 
-  async search(url: string, conditions: Partial<T>): Promise<Results<T>> {
+  async search(url: string,site:string, conditions: Partial<T>): Promise<Results<T>> {
     return (
       await this.axiosinstance.get<Results<T>>(`/${url}`, {
-        params: conditions,
+        params: { ...conditions, site },
       })
     ).data;
   }
