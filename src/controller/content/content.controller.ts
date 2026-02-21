@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, Param, Query, Render } from '@nestjs/common';
-import { endpoint } from 'src/config/urlapi';
+import { endpoint, site } from 'src/config/urlapi';
 import { Content } from 'src/models/viewmodel/content/Content';
 import { IContentService } from 'src/service/content/IContentService';
 
@@ -16,7 +16,7 @@ export class ContentController {
         const pageIndex = query.pageindex ? Number(query.pageindex) : 1;
         const pageSize = query.pagesize ? Number(query.pagesize) : 10;
         const keyword = query.keyword || '';
-        const contents = await this.contentService.findAlls(endpoint.content, {
+        const contents = await this.contentService.findAlls(endpoint.content,site, {
             pageindex: pageIndex, // Sửa pageindex -> pageIndex
             pagesize: pageSize,   // Sửa pagesize -> pageSize
             keyword: keyword,
@@ -41,7 +41,7 @@ export class ContentController {
     @Get(':slug')
     @Render('page/news-detail-page')
     async getPost(@Param('slug') slug: string) {
-        const content = await this.contentService.findAll(endpoint.contentgetBySlug + '/' + slug);
+        const content = await this.contentService.findAll(endpoint.contentgetBySlug + '/' + slug,site);
         return {
             title: slug, // Để hiển thị trên tab trình duyệt
             newsItem: content.item.item[0], // View news-detail.ejs đang chờ biến 'newsItem'

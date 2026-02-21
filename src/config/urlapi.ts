@@ -1,7 +1,7 @@
 export const urlapi = {
   // HTTPAPI: "http://localhost:8089/api/v1/",
   // HTTPURL: "http://localhost:8089",
-  HTTPAPI: "http://192.168.1.112:8089/api/v1/",
+  HTTPAPI: "http://192.168.1.112:8089/api/v1/", 
   HTTPURL: "http://192.168.1.112:8089",
 };
 
@@ -53,7 +53,7 @@ export const endpoint = {
   parallax: "parallax/getalls",
   modalpopup: "modalpopup/getalls",
   // Url API Content
-  content: "content",
+  content: "content/getalls",
   contentgetBySlug: "content/slug",
   // Url API Menu
   menu: "menu/getalls",
@@ -63,6 +63,7 @@ export const endpoint = {
   systemconfig: "systemconfig/getalls",
   // file //
 };
+export const site = "main-site";
 export function getUrlFile(pathOrFilename: string | undefined | null): string {
   if (!pathOrFilename) return "";
   if (pathOrFilename.startsWith("http") || pathOrFilename.startsWith("blob:")) {

@@ -7,8 +7,6 @@ import { ICarouselService } from './service/carousel/ICarousel.Service';
 import { CarouselService } from './service/carousel/Carousel.Service';
 import { IArticleheaderService } from './service/articleheader/IArticleheader.Service';
 import { ArticleheaderService } from './service/articleheader/Articleheader.Service';
-import { BoxImageTextService } from './service/boxImagetext/BoxImageText.Service';
-import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 import { CardService } from './service/card/Card.Service';
 import { ICardService } from './service/card/ICard.Service';
 import { AccordionService } from './service/accordion/Accordion.Service';
@@ -35,6 +33,8 @@ import { ScheduleModule } from './modules/schedule/schedule.module';
 import { ModalPopupService } from './service/modalpopup/ModalPopup.Service';
 import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
 import { SitemapModule } from './modules/sitemap/sitemap.module';
+import { CoursesService } from './service/courses/Courses.Service';
+import { ICoursesService } from './service/courses/ICourses.Service';
 
 @Module({
   imports: [
@@ -63,10 +63,6 @@ import { SitemapModule } from './modules/sitemap/sitemap.module';
       useClass: ArticleheaderService,
     },
     {
-      provide: IBoxImageTextService,
-      useClass: BoxImageTextService,
-    },
-    {
       provide: ICardService,
       useClass: CardService,
     },
@@ -89,9 +85,14 @@ import { SitemapModule } from './modules/sitemap/sitemap.module';
     {
       provide: ILogoService,
       useClass: LogoService,
-    }, {
+    }, 
+    {
       provide: IModalPopupService,
       useClass: ModalPopupService,
+    },
+    {
+      provide: ICoursesService,
+      useClass: CoursesService,
     }
   ],
   exports: [

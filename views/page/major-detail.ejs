@@ -43,17 +43,12 @@
 </style>
 <div class="relative h-[350px] bg-gray-900 overflow-hidden group">
     <div class="absolute inset-0 bg-black/40 z-10"></div>
-    <img src="<%= pageContent.thumbnail || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80' %>" 
-         class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60" 
-         alt="<%= pageContent.heading %>">
-    
     <div class="container mx-auto px-4 h-full flex flex-col justify-end pb-12 relative z-20">
         <span class="inline-block py-1 px-3 rounded bg-blue-600/90 text-white text-xs font-bold uppercase tracking-wider mb-4 w-fit backdrop-blur-sm">
             Chương trình đào tạo
         </span>
         <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-lg max-w-4xl">
             <%= pageContent.heading %>
-            <%= currentPath %>
         </h1>
         
         <div class="flex items-center text-gray-300 text-sm mt-4 gap-4">

@@ -1,6 +1,6 @@
 import { Controller, Get, Render } from '@nestjs/common';
 
-@Controller('khai-giang')
+@Controller('lich-khai-giang')
 export class ScheduleController {
     
     @Get()

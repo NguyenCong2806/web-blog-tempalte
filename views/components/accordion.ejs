@@ -9,18 +9,8 @@
            var items = [];
            if (typeof accordions !== 'undefined' && Array.isArray(accordions) && accordions.length > 0) {
               items = accordions;
-           } else {
-              items = [
-                { title: 'Đối tượng tuyển sinh', detail: '<ul><li>Người đã có bằng Cao đẳng, Đại học</li><li>Sinh viên đang theo học tại các trường Đại học (học song bằng)</li></ul>', open: true },
-                { title: 'Hình thức tuyển sinh', detail: 'Xét tuyển hồ sơ, không thi tuyển đầu vào.' },
-                { title: 'Yêu cầu', detail: 'Nộp đầy đủ hồ sơ theo quy định của nhà trường.' },
-                { title: 'Lịch khai giảng', detail: 'Tuyển sinh liên tục trong năm, xét tuyển hàng tháng.' },
-                { title: 'Nơi tiếp nhận hồ sơ', detail: 'Văn phòng tuyển sinh trực tuyến hoặc gửi qua đường bưu điện.' },
-                { title: 'Văn bằng sau tốt nghiệp', detail: 'Bằng Cử nhân Đại học (Được Bộ GD&ĐT công nhận, có giá trị vĩnh viễn).' }
-              ];
-           }
+            }
         %>
-
         <div class="space-y-4">
           <% items.forEach(function(item, idx) { %>
             
