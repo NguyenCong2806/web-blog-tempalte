@@ -1,56 +1,57 @@
-<section><%- include('./articleheader.ejs',{articleHeader: articleHeaderaccordion}) %></section>
-<section class="py-12 bg-white">
-  <div class="container mx-auto px-4">
-    
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-8 items-start" style="gap: 25px;">
-      
-      <div data-aos="fade-up" class="lg:col-span-7"> 
-        <% 
-           var items = [];
-           if (typeof accordions !== 'undefined' && Array.isArray(accordions) && accordions.length > 0) {
+<section class="py-10">
+  <%- include('./articleheader.ejs',{articleHeader: articleHeaderaccordion}) %>
+    <section>
+      <div class="container mx-auto px-4">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-y-8 items-start" style="gap: 25px;">
+
+          <div data-aos="fade-up" class="lg:col-span-7">
+            <% var items=[]; if (typeof accordions !=='undefined' && Array.isArray(accordions) && accordions.length> 0)
+              {
               items = accordions;
-            }
-        %>
-        <div class="space-y-4">
-          <% items.forEach(function(item, idx) { %>
-            
-            <% var isOpen = item.open || idx === 0; %>
+              }
+              %>
+              <div class="space-y-4">
+                <% items.forEach(function(item, idx) { %>
 
-            <details class="group bg-slate-50 rounded-lg overflow-hidden transition-all duration-300" <%= isOpen ? 'open' : '' %>>
-              
-              <summary class="flex items-center justify-between cursor-pointer p-5 list-none select-none hover:bg-slate-100 transition-colors [&::-webkit-details-marker]:hidden">
-                <h3 class="text-base font-bold text-slate-900">
-                  <%= item.title %>
-                </h3>
-                <div class="shrink-0 transition-transform duration-300 group-open:rotate-180 text-slate-500 w-4 h-4 flex items-center justify-center">
-                   <i class="fa-solid fa-chevron-down text-xs"></i>
-                </div>
-              </summary>
+                  <% var isOpen=item.open || idx===0; %>
 
-              <div class="px-5 pb-5 pt-0 text-slate-600 text-sm leading-relaxed">
-                 <div class="prose prose-sm max-w-none prose-ul:list-disc prose-ul:pl-4 prose-li:mb-1">
-                    <%- item.detail %>
-                 </div>
+                    <details class="group bg-slate-50 rounded-lg overflow-hidden transition-all duration-300" <%=isOpen
+                      ? 'open' : '' %>>
+
+                      <summary
+                        class="flex items-center justify-between cursor-pointer p-5 list-none select-none hover:bg-slate-100 transition-colors [&::-webkit-details-marker]:hidden">
+                        <h3 class="text-base font-bold text-slate-900">
+                          <%= item.title %>
+                        </h3>
+                        <div
+                          class="shrink-0 transition-transform duration-300 group-open:rotate-180 text-slate-500 w-4 h-4 flex items-center justify-center">
+                          <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </div>
+                      </summary>
+
+                      <div class="px-5 pb-5 pt-0 text-slate-600 text-sm leading-relaxed">
+                        <div class="prose prose-sm max-w-none prose-ul:list-disc prose-ul:pl-4 prose-li:mb-1">
+                          <%- item.detail %>
+                        </div>
+                      </div>
+
+                    </details>
+                    <% }); %>
               </div>
 
-            </details>
-          <% }); %> 
+          </div>
+
+          <div data-aos="fade-left" class="lg:col-span-5 relative group">
+            <div class="rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-10">
+              <img
+                src="<%= (typeof imageFeature !== 'undefined' && imageFeature) ? imageFeature : '/images/mau-bang-dai-hoc-tu-xa-tnu-ngon-ngu-anh-1076x800.jpg' %>"
+                alt="Hình ảnh minh họa" class="w-full h-auto object-contain" loading="lazy"
+                onerror="this.src='https://placehold.co/800x600?text=Certificate+Image'" />
+            </div>
+          </div>
+
         </div>
-
       </div>
-
-      <div data-aos="fade-left" class="lg:col-span-5 relative group">
-         <div class="rounded-xl overflow-hidden shadow-sm border border-gray-100 relative z-10">
-            <img 
-              src="<%= (typeof imageFeature !== 'undefined' && imageFeature) ? imageFeature : '/image/mau-bang-dai-hoc-tu-xa-tnu-ngon-ngu-anh-1076x800.jpg' %>" 
-              alt="Hình ảnh minh họa"
-              class="w-full h-auto object-contain" 
-              loading="lazy"
-              onerror="this.src='https://placehold.co/800x600?text=Certificate+Image'"
-            />
-         </div>
-      </div>
-
-    </div>
-  </div>
+    </section>
 </section>

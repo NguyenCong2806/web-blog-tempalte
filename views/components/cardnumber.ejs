@@ -1,24 +1,17 @@
-<div class="w-full" style="background: linear-gradient(135deg, #152e4d 0%, #1a4f66 100%); color: white;">
+<div class="w-full bg-slate-200">
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 lg:py-20 text-center">
-            <section><%- include('./articleheader.ejs',{articleHeader: articleHeadercardnumbers}) %></section>
+            <section>
+                <%- include('./articleheader.ejs',{articleHeader: articleHeadercardnumbers}) %>
+            </section>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
-            <% 
-               const defaults = [
-                    { text: 'Ngành học trực tuyến', end: 9, suffix: '+', prefix: '' },
-                    { text: 'Khóa học', end: 2000, suffix: '%', prefix: '' },
-                    { text: 'Sinh viên theo học', end: 10000, suffix: '%', prefix: '' }
-               ];
-               const items = (typeof cardnumbers !== 'undefined' && Array.isArray(cardnumbers) && cardnumbers.length) 
-                    ? cardnumbers 
-                    : defaults;
-            %>
+            <% const items = cardnumbers %>
 
             <% items.forEach(function(item) { %>
                 <div class="flex flex-col items-center justify-center group relative p-3 transition-transform duration-500 hover:scale-105">
                     
                     <div class="counter text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 drop-shadow-2xl transition-all duration-500 group-hover:text-orange-300"
-                         style="color: #ffffff; line-height: 1; text-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+                         style="color: #242d3b; line-height: 1; text-shadow: 0 4px 12px rgba(0,0,0,0.3);"
                          data-target="<%= item.end || item.count || 0 %>" 
                          data-suffix="<%= item.suffix || '' %>"
                          data-prefix="<%= item.prefix || '' %>">
