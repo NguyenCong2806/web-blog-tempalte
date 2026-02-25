@@ -1,9 +1,9 @@
-<section class="py-16 bg-gray-50" id="courses-section">
+<section class="py-16" id="courses-section">
   <div class="max-w-screen-2xl mx-auto px-4">
 
     <section><%- include('./articleheader.ejs',{articleHeader: articleHeadecourses}) %></section>
 
-    <section class="py-12 bg-gray-50 overflow-hidden">
+    <section class="py-12overflow-hidden">
       <div class="container mx-auto px-4">
 
         <% if (typeof courses !=='undefined' && courses.length> 0) { %>
@@ -11,7 +11,7 @@
 
             <% courses.forEach(function(item, index) { %>
 
-              <div class="group h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden 
+              <div class="group h-full flex flex-col bg-gray-50 rounded-xl shadow-sm border border-gray-100 overflow-hidden 
                                 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out"
                 data-aos="fade-up">
 
@@ -38,7 +38,7 @@
 
                       <% if (item.detail) { %>
                         <div
-                          class="text-gray-600 text-sm font-light leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
+                          class="text-gray-600 text-md text-justify leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
                           <%- item.detail.replace(/\n/g, '<br>' ) %>
                         </div>
                         <% } %>
