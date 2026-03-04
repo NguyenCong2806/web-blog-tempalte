@@ -1,48 +1,42 @@
-<section><%- include('./articleheader.ejs',{articleHeader: articleHeaderboxImagetext}) %></section>
+<% if (typeof boxImageTexts !=='undefined' && boxImageTexts.length> 0) { %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
 
-<section class="py-12 bg-gray-50 overflow-hidden">
-    <div class="container mx-auto px-4">
+        <% boxImageTexts.forEach(function(item, index) { %>
 
-        <% if (typeof boxImageTexts !== 'undefined' && boxImageTexts.length > 0) { %>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                
-                <% boxImageTexts.forEach(function(item, index) { %>
+            <div class="group h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden 
+                                hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out"
+                data-aos="fade-up">
 
-                    <div class="group h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden 
-                                hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out" 
-                         data-aos="fade-up">
-                        
-                        <div class="relative w-full h-48 md:h-52 overflow-hidden shrink-0">
-                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10"></div>
-
-                            <img src="<%= item.image || '/images/default-placeholder.jpg' %>"
-                                alt="<%= item.heading %>"
-                                class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-                                loading="lazy">
-                        </div>
-
-                        <div class="p-5 flex flex-col flex-grow relative">
-                            
-                            <% if (item.heading) { %>
-                                <h3 class="text-lg font-bold text-slate-800 mb-3 leading-snug line-clamp-2 min-h-[3.2rem]
-                                           transition-colors duration-300 group-hover:text-blue-700">
-                                    <%= item.heading %>
-                                </h3>
-                            <% } %>
-
-                            <% if (item.note) { %>
-                                <div class="text-gray-600 text-sm font-light leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
-                                    <%- item.note.replace(/\n/g, '<br>') %>
-                                </div>
-                            <% } %>
-
-                        </div>
-
+                <div class="relative w-full h-48 md:h-52 overflow-hidden shrink-0">
+                    <div
+                        class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10">
                     </div>
 
-                <% }); %>
-            </div>
-        <% } %>
+                    <img src="<%= item.image || '/images/default-placeholder.jpg' %>" alt="<%= item.heading %>"
+                        class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy">
+                </div>
 
+                <div class="p-5 flex flex-col flex-grow relative">
+
+                    <% if (item.heading) { %>
+                        <h3 class="text-lg font-bold text-slate-800 mb-3 leading-snug line-clamp-2 min-h-[3.2rem]
+                                           transition-colors duration-300 group-hover:text-blue-700">
+                            <%= item.heading %>
+                        </h3>
+                        <% } %>
+
+                            <% if (item.note) { %>
+                                <div
+                                    class="text-gray-600 text-sm font-light leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
+                                    <%- item.note.replace(/\n/g, '<br>' ) %>
+                                </div>
+                                <% } %>
+
+                </div>
+
+            </div>
+
+            <% }); %>
     </div>
-</section>
+    <% } %>

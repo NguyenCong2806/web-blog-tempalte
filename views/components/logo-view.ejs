@@ -19,15 +19,6 @@
             <img class="w-auto h-9 sm:h-10 md:h-12 lg:h-14 object-contain"
                 src="<%= item.image || '/image/logo.png' %>" 
                 alt="<%= item.site || 'Logo Website' %>"
-                
-                /* --- CSS RESPONSIVE CHUẨN --- */
-                /* w-auto: Tự động điều chỉnh chiều rộng theo tỷ lệ ảnh */
-                /* h-8 (32px): Mobile nhỏ */
-                /* sm:h-10 (40px): Mobile lớn */
-                /* md:h-12 (48px): Tablet */
-                /* lg:h-14 (56px): Desktop */
-                /* object-contain: Đảm bảo ảnh luôn hiển thị trọn vẹn */
-                /* Attributes hỗ trợ SEO và Core Web Vitals (CLS) */
                 <% if (item.width) { %> width="<%= item.width %>" <% } %>
                 <% if (item.height) { %> height="<%= item.height %>" <% } %>
                 
