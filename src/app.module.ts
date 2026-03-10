@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
@@ -35,6 +36,8 @@ import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
 import { SitemapModule } from './modules/sitemap/sitemap.module';
 import { CoursesService } from './service/courses/Courses.Service';
 import { ICoursesService } from './service/courses/ICourses.Service';
+import { BoxImageTextService } from './service/boxImagetext/BoxImageText.Service';
+import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 
 @Module({
   imports: [
@@ -93,11 +96,18 @@ import { ICoursesService } from './service/courses/ICourses.Service';
     {
       provide: ICoursesService,
       useClass: CoursesService,
+    },
+    {
+      provide: IBoxImageTextService,
+      useClass: BoxImageTextService,
     }
   ],
   exports: [
     ICarouselService,
-    IArticleheaderService
+    IArticleheaderService,
+    IBoxImageTextService,
+    ICardService,
+    IAccordionService,
   ],
 })
 export class AppModule implements NestModule {

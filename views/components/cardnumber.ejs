@@ -1,24 +1,28 @@
 <div class="w-full max-w-screen-2xl mx-auto px-4 py-12 sm:py-16 lg:py-20" data-aos="fade-up" data-aos-duration="800">
+  <% if (Array.isArray(cardNumbers) && cardNumbers.length > 0) { %>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
-        <% cardNumbers.forEach(function(item) { %>
-            <div
-                class="flex flex-col items-center justify-center group relative p-3 transition-transform duration-500 hover:scale-105">
+      <% cardNumbers.forEach(function(item) { %>
+        <div
+            class="flex flex-col items-center justify-center group relative p-3 transition-transform duration-500 hover:scale-105">
 
-                <div class="counter text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 drop-shadow-2xl transition-all duration-500 group-hover:text-orange-300"
-                    style="color: #242d3b; line-height: 1; text-shadow: 0 4px 12px rgba(0,0,0,0.3);"
-                    data-target="<%= item.end || item.count || 0 %>" data-suffix="<%= item.suffix || '' %>"
-                    data-prefix="<%= item.prefix || '' %>">
-                    0
-                </div>
-
-                <div class="text-xs sm:text-sm md:text-base lg:text-lg font-bold uppercase tracking-widest border-t-2 pt-3 sm:pt-4 mt-2 sm:mt-3 transition-colors duration-300 group-hover:border-orange-300 group-hover:text-orange-300"
-                    style="color: #ff5722; border-color: #ff5722;">
-                    <%= item.text || item.label || 'N/A' %>
-                </div>
-
+            <div class="counter text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 drop-shadow-2xl transition-all duration-500 group-hover:text-orange-300"
+                style="color: #242d3b; line-height: 1; text-shadow: 0 4px 12px rgba(0,0,0,0.3);"
+                data-target="<%= item.end || item.count || 0 %>" data-suffix="<%= item.suffix || '' %>"
+                data-prefix="<%= item.prefix || '' %>">
+                0
             </div>
-            <% }); %>
+
+            <div class="text-xs sm:text-sm md:text-base lg:text-lg font-bold uppercase tracking-widest border-t-2 pt-3 sm:pt-4 mt-2 sm:mt-3 transition-colors duration-300 group-hover:border-orange-300 group-hover:text-orange-300"
+                style="color: #ff5722; border-color: #ff5722;">
+                <%= item.text || item.label || 'N/A' %>
+            </div>
+
+        </div>
+      <% }); %>
     </div>
+  <% } else { %>
+    <%- include('./empty-state.ejs') %>
+  <% } %>
 </div>
 
 <script>

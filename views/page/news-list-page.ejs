@@ -1,1 +1,19 @@
-<%- include('../components/news-list.ejs', {newsItems: newsItems}) %>
+<%
+   // page-specific helpers / pass-throughs
+   var pageTitle = pageTitle || 'Danh sách tin tức';
+   var searchAction = searchAction || '/news';
+   var searchQuery = typeof query !== 'undefined' ? query : '';
+   var filterTabs = typeof filterTabs !== 'undefined' ? filterTabs : [];
+   var sortOptions = typeof sortOptions !== 'undefined' ? sortOptions : [];
+   // hero and parallax may be provided by controller
+%>
+<%- include('../components/news-list.ejs', {
+      newsItems: newsItems,
+      pageTitle: pageTitle,
+      searchAction: searchAction,
+      searchQuery: searchQuery,
+      filterTabs: filterTabs,
+      sortOptions: sortOptions,
+      hero: hero,
+      pageParallaxes: pageParallaxes
+    }) %>

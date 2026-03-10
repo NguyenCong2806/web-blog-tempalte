@@ -1,0 +1,13 @@
+<%
+    // sort-dropdown component
+    // expects: {options} where each option: {label, value, selected}
+%>
+<% if (options && options.length) { %>
+    <div class="mb-6 inline-block relative text-left">
+        <select name="sort" class="form-select block w-full pl-3 pr-8 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <% options.forEach(function(opt) { %>
+                <option value="<%= opt.value %>" <%= opt.selected ? 'selected' : '' %>><%= opt.label %></option>
+            <% }); %>
+        </select>
+    </div>
+<% } %>

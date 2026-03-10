@@ -1,57 +1,62 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-  <% feedbacks.forEach(function(item) { %>
+<div class="container mx-auto px-4 py-12">
+  <% if (Array.isArray(feedbacks) && feedbacks.length > 0) { %>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+      <% feedbacks.forEach(function(item) { %>
 
-    <div data-aos="fade-down-right"
-      class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 hover:border-teal-200 flex flex-col h-full relative group overflow-hidden">
+        <div data-aos="fade-down-right"
+          class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 hover:border-teal-200 flex flex-col h-full relative group overflow-hidden">
 
-      <div
-        class="absolute top-4 sm:top-6 md:top-8 right-6 sm:right-8 md:right-10 text-6xl sm:text-7xl md:text-8xl text-teal-100 font-serif opacity-50 group-hover:text-teal-200 group-hover:opacity-70 transition-all duration-500 pointer-events-none select-none">
-        "
-      </div>
+          <div
+            class="absolute top-4 sm:top-6 md:top-8 right-6 sm:right-8 md:right-10 text-6xl sm:text-7xl md:text-8xl text-teal-100 font-serif opacity-50 group-hover:text-teal-200 group-hover:opacity-70 transition-all duration-500 pointer-events-none select-none">
+            "
+          </div>
 
-      <div
-        class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mb-4 sm:mb-6 md:mb-8 rounded-full bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center text-teal-600 shrink-0 shadow-sm group-hover:shadow-md group-hover:scale-110 transition-all duration-300">
-        <i class="fa-solid fa-quote-right text-lg sm:text-xl md:text-2xl"></i>
-      </div>
+          <div
+            class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mb-4 sm:mb-6 md:mb-8 rounded-full bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center text-teal-600 shrink-0 shadow-sm group-hover:shadow-md group-hover:scale-110 transition-all duration-300">
+            <i class="fa-solid fa-quote-right text-lg sm:text-xl md:text-2xl"></i>
+          </div>
 
-      <div class="relative z-10 mb-5 sm:mb-6 md:mb-8 flex-grow">
-        <div
-          class="text-gray-600 italic leading-relaxed text-sm sm:text-base prose prose-sm max-w-none line-clamp-4 group-hover:text-gray-700 transition-colors duration-300">
-          <%- item.detail %>
+          <div class="relative z-10 mb-5 sm:mb-6 md:mb-8 flex-grow">
+            <div
+              class="text-gray-600 italic leading-relaxed text-sm sm:text-base prose prose-sm max-w-none line-clamp-4 group-hover:text-gray-700 transition-colors duration-300">
+              <%- item.detail %>
+            </div>
+          </div>
+
+          <div
+            class="w-full h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent mb-5 sm:mb-6 md:mb-8 group-hover:via-teal-200 transition-colors duration-300">
+          </div>
+
+          <div class="flex items-center gap-3 sm:gap-4 md:gap-5 relative z-10">
+
+            <div
+              class="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-1 bg-white border-2 border-gray-200 shadow-md flex-shrink-0 group-hover:border-teal-300 group-hover:shadow-lg transition-all duration-300">
+              <img src="<%= item.img || 'https://placehold.co/100x100?text=U' %>" alt="<%= item.title %>"
+                class="w-full h-full object-cover rounded-full" loading="lazy" decoding="async"
+                onerror="this.src='https://placehold.co/100x100?text=User'">
+            </div>
+
+            <div class="flex flex-col gap-0.5 sm:gap-1 flex-1 min-w-0">
+              <h4
+                class="font-bold text-gray-900 text-sm sm:text-base group-hover:text-teal-700 transition-colors duration-300 truncate">
+                <%= item.title %>
+              </h4>
+
+              <% if (item.job) { %>
+                <span
+                  class="text-xs sm:text-sm text-gray-500 font-medium line-clamp-1 group-hover:text-gray-600 transition-colors duration-300">
+                  <%= item.job %>
+                </span>
+              <% } %>
+            </div>
+
+          </div>
+
         </div>
-      </div>
 
-      <div
-        class="w-full h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent mb-5 sm:mb-6 md:mb-8 group-hover:via-teal-200 transition-colors duration-300">
-      </div>
-
-      <div class="flex items-center gap-3 sm:gap-4 md:gap-5 relative z-10">
-
-        <div
-          class="w-14 h-14 sm:w-16 sm:h-16 rounded-full p-1 bg-white border-2 border-gray-200 shadow-md flex-shrink-0 group-hover:border-teal-300 group-hover:shadow-lg transition-all duration-300">
-          <img src="<%= item.img || 'https://placehold.co/100x100?text=U' %>" alt="<%= item.title %>"
-            class="w-full h-full object-cover rounded-full" loading="lazy" decoding="async"
-            onerror="this.src='https://placehold.co/100x100?text=User'">
-        </div>
-
-        <div class="flex flex-col gap-0.5 sm:gap-1 flex-1 min-w-0">
-          <h4
-            class="font-bold text-gray-900 text-sm sm:text-base group-hover:text-teal-700 transition-colors duration-300 truncate">
-            <%= item.title %>
-          </h4>
-
-          <% if (item.job) { %>
-            <span
-              class="text-xs sm:text-sm text-gray-500 font-medium line-clamp-1 group-hover:text-gray-600 transition-colors duration-300">
-              <%= item.job %>
-            </span>
-            <% } %>
-        </div>
-
-      </div>
-
+      <% }); %>
     </div>
-
-    <% }); %>
-
+  <% } else { %>
+    <%- include('./empty-state.ejs') %>
+  <% } %>
 </div>
