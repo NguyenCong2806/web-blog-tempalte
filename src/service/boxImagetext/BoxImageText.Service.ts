@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import Service from '../Service';
 import { IBoxImageTextService } from './IBoxImageText.Service';

@@ -1,18 +1,18 @@
-<% if (typeof articleHeader !=='undefined' && articleHeader) { %>
+<% if (typeof articleheader !=='undefined' && articleheader) { %>
 
     <div class="mb-10 max-w-4xl mx-auto text-center">
 
-        <% if (articleHeader.headingheader) { %>
+        <% if (articleheader.headingheader) { %>
             <h1 data-aos="fade-up" data-aos-duration="800"
                 class="text-3xl md:text-4xl font-bold text-slate-800 uppercase mb-3">
-                <%= articleHeader.headingheader %>
+                <%= articleheader.headingheader %>
             </h1>
             <% } %>
 
-                <% if (articleHeader.headingbody) { %>
+                <% if (articleheader.headingbody) { %>
                     <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="800"
                         class="text-gray-500 text-base md:text-lg font-light leading-relaxed max-w-2xl mx-auto">
-                        <%= articleHeader.headingbody %>
+                        <%= articleheader.headingbody %>
                     </p>
                     <% } %>
     </div>

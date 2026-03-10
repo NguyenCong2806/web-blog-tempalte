@@ -1,6 +1,6 @@
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 py-12">
 
-  <% if (typeof courses !=='undefined' && courses.length> 0) { %>
+  <% if (Array.isArray(courses) && courses.length > 0) { %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
 
       <% courses.forEach(function(item, index) { %>
@@ -28,17 +28,19 @@
                   <%= item.title %>
                 </a>
               </h3>
-              <% } %>
+            <% } %>
 
-                <% if (item.detail) { %>
-                  <div
-                    class="text-gray-600 text-md text-justify leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
-                    <%- item.detail.replace(/\n/g, '<br>' ) %>
-                  </div>
-                  <% } %>
+            <% if (item.detail) { %>
+              <div
+                class="text-gray-600 text-md text-justify leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
+                <%- item.detail.replace(/\n/g, '<br>' ) %>
+              </div>
+            <% } %>
           </div>
         </div>
-        <% }); %>
+      <% }); %>
     </div>
-    <% } %>
+  <% } else { %>
+    <%- include('./empty-state.ejs') %>
+  <% } %>
 </div>

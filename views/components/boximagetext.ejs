@@ -1,42 +1,86 @@
-<% if (typeof boxImageTexts !=='undefined' && boxImageTexts.length> 0) { %>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-
-        <% boxImageTexts.forEach(function(item, index) { %>
-
-            <div class="group h-full flex flex-col bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden 
-                                hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out"
-                data-aos="fade-up">
-
-                <div class="relative w-full h-48 md:h-52 overflow-hidden shrink-0">
-                    <div
-                        class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10">
-                    </div>
-
-                    <img src="<%= item.image || '/images/default-placeholder.jpg' %>" alt="<%= item.heading %>"
-                        class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy">
-                </div>
-
-                <div class="p-5 flex flex-col flex-grow relative">
-
-                    <% if (item.heading) { %>
-                        <h3 class="text-lg font-bold text-slate-800 mb-3 leading-snug line-clamp-2 min-h-[3.2rem]
-                                           transition-colors duration-300 group-hover:text-blue-700">
-                            <%= item.heading %>
-                        </h3>
-                        <% } %>
-
-                            <% if (item.note) { %>
-                                <div
-                                    class="text-gray-600 text-sm font-light leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
-                                    <%- item.note.replace(/\n/g, '<br>' ) %>
-                                </div>
-                                <% } %>
-
-                </div>
-
+<div class="relative">
+    <div id="box-container" class="flex flex-col md:flex-row justify-start items-start gap-6 mb-8 group p-4 rounded-lg border border-slate-100 transition-colors duration-300 hover:bg-gray-100 w-full transition-opacity duration-700 ease-in-out opacity-100">
+        <div class="inline-block overflow-hidden rounded-lg w-full md:w-1/3 flex-shrink-0">
+            <img id="display-image" src="/images/default-placeholder.jpg" alt="anh"
+                class="w-full h-auto md:h-full object-cover transform transition-transform duration-500 group-hover:scale-90"
+                loading="lazy">
+        </div>
+        <div class="inline-block w-full">
+            <h2 id="display-title" class="text-2xl md:text-3xl font-bold mb-4 text-slate-700 group-hover:text-slate-900 transition-colors duration-300">
+                Tiêu đề mặc định
+            </h2>
+            <div id="note-container" class="text-gray-600 text-sm md:text-base font-light leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
+                <p id="display-note" class="text-justify">Lorem ipsum dolor sit amet...</p>
             </div>
-
-            <% }); %>
+        </div>
     </div>
-    <% } %>
+</div>
+
+<script>
+    // 1. Chuyển dữ liệu từ Server-side sang Client-side JS
+    // Cần đảm bảo dữ liệu được JSON.stringify để JS hiểu được
+    const items = JSON.parse('<%- JSON.stringify(boximagetexts || []) %>');
+
+    let currentIndex = 0;
+
+    // Hàm cập nhật giao diện với hiệu ứng mượt mà
+    function updateUI(index) {
+        if (!items || items.length === 0) return;
+        const container = document.getElementById('box-container');
+        const data = items[index];
+
+        // bắt đầu fade out
+        if (container) {
+            container.style.opacity = '0';
+        }
+
+        setTimeout(() => {
+            // fetch DOM elements by their correct IDs
+            const elTitle   = document.getElementById('display-title');
+            const elNote    = document.getElementById('display-note');
+            const elNoteBox = document.getElementById('note-container');
+            const elImage   = document.getElementById('display-image');
+
+            // cập nhật các trường đơn giản
+            if (elTitle) elTitle.innerText = data.heading || "Tiêu đề mặc định";
+
+            if (elNoteBox && elNote) {
+                if (data.note) {
+                    elNoteBox.style.display = "block";
+                    // allow HTML formatting or line breaks in the note text
+                    elNote.innerHTML = data.note.replace(/\n/g, '<br>');
+                } else {
+                    elNoteBox.style.display = "none";
+                }
+            }
+
+            if (elImage && data.image) {
+                elImage.src = data.image;
+            }
+
+            // fade back in
+            if (container) {
+                container.style.opacity = '1';
+            }
+        }, 300); // khoảng thời gian fade (ms)
+    }
+
+    function changeItem(direction) {
+        if (items.length <= 1) return;
+
+        if (direction === 'next') {
+            currentIndex = (currentIndex + 1) % items.length;
+        } else {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+        }
+
+        updateUI(currentIndex);
+    }
+
+    // initialize and start automatic rotation
+    document.addEventListener('DOMContentLoaded', () => {
+        updateUI(0);
+        // rotate every 3 seconds (3000 ms) – will wrap around the items
+        setInterval(() => changeItem('next'), 10000);
+    });
+</script>

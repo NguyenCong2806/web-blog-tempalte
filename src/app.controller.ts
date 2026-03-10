@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Inject, Render } from '@nestjs/common';
 import { Carousel } from './models/viewmodel/carousel/Carousel';
 import { ArticleHeader } from './models/viewmodel/articleheader/ArticleHeader';
@@ -18,46 +19,85 @@ import { IMajorsnoteService } from './service/majorsnote/IMajorsnote.Service';
 import { ICoursesService } from './service/courses/ICourses.Service';
 import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
 import { Courses } from './models/viewmodel/courses/Courses';
+import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
+import { BoxImageText } from './models/viewmodel/boxImagetext/BoxImageText';
 
 @Controller()
 export class AppController {
   constructor(
-    @Inject(ICarouselService) private readonly carouselService: ICarouselService,
-    @Inject(IArticleheaderService) private readonly articleheaderService: IArticleheaderService,
+    @Inject(ICarouselService)
+    private readonly carouselService: ICarouselService,
+    @Inject(IArticleheaderService)
+    private readonly articleheaderService: IArticleheaderService,
     @Inject(ICardService) private readonly cardService: ICardService,
-    @Inject(IAccordionService) private readonly accordionService: IAccordionService,
-    @Inject(ICardNumbersService) private readonly cardNumbersService: ICardNumbersService,
-    @Inject(IFeedbackService) private readonly feedbackService: IFeedbackService,
-    @Inject(IMajorsnoteService) private readonly majorsnoteService : IMajorsnoteService,
-    @Inject(IModalPopupService) private readonly modalPopupService: IModalPopupService,
-    @Inject(ICoursesService) private readonly coursesService: ICoursesService
-  ) { }
+    @Inject(IAccordionService)
+    private readonly accordionService: IAccordionService,
+    @Inject(ICardNumbersService)
+    private readonly cardNumbersService: ICardNumbersService,
+    @Inject(IFeedbackService)
+    private readonly feedbackService: IFeedbackService,
+    @Inject(IMajorsnoteService)
+    private readonly majorsnoteService: IMajorsnoteService,
+    @Inject(IModalPopupService)
+    private readonly modalPopupService: IModalPopupService,
+    @Inject(ICoursesService) 
+    private readonly coursesService: ICoursesService,
+    @Inject(IBoxImageTextService)
+    private readonly boxImageTextService: IBoxImageTextService,
+  ) {}
 
   @Get()
   @Render('index')
   async get(): Promise<object> {
     //data carousel
-    const carousels = await this.carouselService.findAll(endpoint.carousel, site);
+    const carousels = await this.carouselService.findAll(
+      endpoint.carousel,
+      site,
+    );
     const imageData = carousels.item as Carousel[];
-    const heading =  await this.articleheaderService.findAll(endpoint.articleheader, site);
+    const heading = await this.articleheaderService.findAll(
+      endpoint.articleheader,
+      site,
+    );
+    const boxImageTextData = await this.boxImageTextService.findAll(
+      endpoint.boximagetext,
+      site,
+    );
+    const boxImageTexts = boxImageTextData.item as BoxImageText[];
+
     const headers = heading.item as ArticleHeader[];
     const cards = await this.cardService.findAll(endpoint.card, site);
     const cardData = cards.item as Card[];
-    const accordions = await this.accordionService.findAll(endpoint.accordion, site);
-    const accordionData = accordions.item as Accordion[];
-    const cardNumbers = await this.cardNumbersService.findAll(endpoint.cardnumber, site);
+    const datas = await this.accordionService.findAll(
+      endpoint.accordion,
+      site,
+    );
+    const accordions = datas.item as Accordion[];
+    const cardNumbers = await this.cardNumbersService.findAll(
+      endpoint.cardnumber,
+      site,
+    );
     const cardnumbers = cardNumbers.item as CardNumbers[];
-    const feedbacks = await this.feedbackService.findAll(endpoint.feedback, site);
+    const feedbacks = await this.feedbackService.findAll(
+      endpoint.feedback,
+      site,
+    );
     const feedbackData = feedbacks.item as Feedback[];
-    const majorsnotes = await this.majorsnoteService.findAll(endpoint.majorsnote, site);
+    const majorsnotes = await this.majorsnoteService.findAll(
+      endpoint.majorsnote,
+      site,
+    );
     const majorsnoteData = majorsnotes.item as MajorsNote[];
-    const modalPopups = await this.modalPopupService.findAll(endpoint.modalpopup, site);
+    const modalPopups = await this.modalPopupService.findAll(
+      endpoint.modalpopup,
+      site,
+    );
     const modalPopupData = modalPopups.item as ModalPopup[];
     const courses = await this.coursesService.findAll(endpoint.courses, site);
     const coursesData = courses.item as Courses[];
-    
+
     return {
-      title: "home",
+      title: 'home',
       currentPath: '/',
       carousels: imageData,
       ///section courses
@@ -68,7 +108,7 @@ export class AppController {
       cards: cardData,
       ///section accordion
       articleHeaderaccordion: headers[2],
-      accordions: accordionData,
+      accordions: accordions,
       ///section cardnumbers
       articleHeadercardnumbers: headers[3],
       cardnumbers: cardnumbers,
@@ -78,7 +118,10 @@ export class AppController {
       ///section majorsnote
       articleHeadermajorsnote: headers[5],
       majorsnotes: majorsnoteData,
-      
+        ///section boximagetext
+      boximagetexts: boxImageTexts,
+      ///section modalpopup
+
       modalPopups: modalPopupData,
     };
   }

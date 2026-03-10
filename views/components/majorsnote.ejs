@@ -3,20 +3,18 @@
     <%- include('./articleheader.ejs',{articleHeader: articleHeadermajorsnote}) %>
   </section>
   <div class="container mx-auto px-4 sm:px-6 relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
-      <div class="lg:col-span-7">
-        <div
-          class="border-2 border-slate-300 rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-12 bg-gradient-to-br from-slate-50 to-slate-100 shadow-lg hover:shadow-2xl transition-all duration-500 group"
-          data-aos="fade-up">
-          <ul class="space-y-5 sm:space-y-6 md:space-y-7">
+    <% if (Array.isArray(majorsnotes) && majorsnotes.length > 0) { %>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
+        <div class="lg:col-span-7">
+          <div
+            class="border-2 border-slate-300 rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-12 bg-gradient-to-br from-slate-50 to-slate-100 shadow-lg hover:shadow-2xl transition-all duration-500 group"
+            data-aos="fade-up">
+            <ul class="space-y-5 sm:space-y-6 md:space-y-7">
 
-            <% if (typeof majorsnotes !== 'undefined' && majorsnotes.length > 0) { %>
               <% majorsnotes.forEach(function(item) { %>
-                
                 <% 
-                  // 1. XỬ LÝ NỘI DUNG (Tách dòng HTML) 
-                  var lines = []; 
-                  if (item.note) { 
+                  var lines = [];
+                  if (item.note) {
                     lines = item.note.replace(/<p>/g, '').split('</p>').map(line => line.trim()).filter(line => line.length > 0);
                   }
                 %>
@@ -34,18 +32,19 @@
                 <% }); %>
 
               <% }); %>
-            <% } %>
 
-          </ul>
+            </ul>
+          </div>
         </div>
-
-      </div>
-      <div class="lg:col-span-5 flex items-center justify-center" data-aos="fade-left">
-        <div class="w-full max-w-md">
-          <img src="https://ihou.edu.vn/wp-content/uploads/2023/08/4-1024x794.png" alt="Majors Note Illustration"
-            class="w-full h-auto rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+        <div class="lg:col-span-5 flex items-center justify-center" data-aos="fade-left">
+          <div class="w-full max-w-md">
+            <img src="https://ihou.edu.vn/wp-content/uploads/2023/08/4-1024x794.png" alt="Majors Note Illustration"
+              class="w-full h-auto rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
+          </div>
         </div>
       </div>
-    </div>
+    <% } else { %>
+      <%- include('./empty-state.ejs') %>
+    <% } %>
   </div>
 </div>
