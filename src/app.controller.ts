@@ -21,6 +21,8 @@ import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
 import { Courses } from './models/viewmodel/courses/Courses';
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 import { BoxImageText } from './models/viewmodel/boxImagetext/BoxImageText';
+import { IContactService } from './service/contact/IContact.Service';
+import { Contact } from './models/viewmodel/contact/Contact';
 
 @Controller()
 export class AppController {
@@ -40,11 +42,13 @@ export class AppController {
     private readonly majorsnoteService: IMajorsnoteService,
     @Inject(IModalPopupService)
     private readonly modalPopupService: IModalPopupService,
-    @Inject(ICoursesService) 
+    @Inject(ICoursesService)
     private readonly coursesService: ICoursesService,
     @Inject(IBoxImageTextService)
     private readonly boxImageTextService: IBoxImageTextService,
-  ) {}
+    @Inject(IContactService)
+    private readonly contactService: IContactService,
+  ) { }
 
   @Get()
   @Render('index')
@@ -95,11 +99,16 @@ export class AppController {
     const modalPopupData = modalPopups.item as ModalPopup[];
     const courses = await this.coursesService.findAll(endpoint.courses, site);
     const coursesData = courses.item as Courses[];
-
+    const contacts = await this.contactService.findAll(
+      endpoint.contact,
+      site,
+    );
+    const contactsData = contacts.item as Contact[];
     return {
       title: 'home',
       currentPath: '/',
       carousels: imageData,
+      contacts: contactsData,
       ///section courses
       articleHeadecourses: headers[0],
       courses: coursesData,
@@ -118,7 +127,7 @@ export class AppController {
       ///section majorsnote
       articleHeadermajorsnote: headers[5],
       majorsnotes: majorsnoteData,
-        ///section boximagetext
+      ///section boximagetext
       boximagetexts: boxImageTexts,
       ///section modalpopup
 

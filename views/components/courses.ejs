@@ -1,46 +1,53 @@
 <div class="container mx-auto px-4 py-12">
 
-  <% if (Array.isArray(courses) && courses.length > 0) { %>
+  <% if (Array.isArray(courses) && courses.length> 0) { %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
 
       <% courses.forEach(function(item, index) { %>
 
-        <div class="group h-full flex flex-col bg-gray-50 rounded-xl shadow-sm border border-gray-100 overflow-hidden 
-                                hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 ease-in-out"
-          data-aos="fade-up">
+        <div class="group w-full max-w-sm aspect-[4/5] mx-auto [perspective:1000px]">
+          <div class="relative w-full h-full transition-transform duration-700 
+              [transform-style:preserve-3d] 
+              group-hover:[transform:rotateY(180deg)]">
 
-          <div class="relative w-full h-48 md:h-52 overflow-hidden shrink-0">
-            <div
-              class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10">
+            <!-- FRONT -->
+            <div class="absolute inset-0 [backface-visibility:hidden]">
+              <img src="<%= item.img || '/images/default-placeholder.jpg' %>" alt="<%= item.title %>"
+                class="w-full h-full object-cover rounded-2xl shadow-xl" />
+
+              <!-- overlay -->
+              <div class="absolute inset-0 bg-black/40 flex items-end p-4 rounded-2xl">
+                <h3 class="text-white text-lg font-semibold">
+                  <%= item.title %>
+                </h3>
+              </div>
             </div>
 
-            <img src="<%= item.img || '/images/default-placeholder.jpg' %>" alt="<%= item.title %>"
-              class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-              loading="lazy">
-          </div>
+            <!-- BACK -->
+            <div class="absolute inset-0 [transform:rotateY(180deg)] 
+                [backface-visibility:hidden] 
+                bg-white rounded-2xl shadow-2xl p-5 flex flex-col justify-center">
 
-          <div class="p-5 flex flex-col flex-grow relative">
+              <h2 class="text-xl font-bold mb-2">
+                <%= item.title %>
+              </h2>
 
-            <% if (item.title) { %>
-              <h3 class="text-lg font-bold text-slate-800 leading-snug line-clamp-2 min-h-[2.2rem]
-                                           transition-colors duration-300 group-hover:text-blue-700">
-                <a href="<%= item.link || '#' %>">
-                  <%= item.title %>
-                </a>
-              </h3>
-            <% } %>
-
-            <% if (item.detail) { %>
               <div
                 class="text-gray-600 text-md text-justify leading-relaxed line-clamp-4 group-hover:text-gray-900 transition-colors duration-300">
                 <%- item.detail.replace(/\n/g, '<br>' ) %>
               </div>
-            <% } %>
+
+              <button class="mt-4 px-4 py-2 bg-black text-white rounded-lg 
+                     hover:bg-gray-800 transition">
+                Xem ngay
+              </button>
+            </div>
+
           </div>
         </div>
-      <% }); %>
+        <% }); %>
     </div>
-  <% } else { %>
-    <%- include('./empty-state.ejs') %>
-  <% } %>
+    <% } else { %>
+      <%- include('./empty-state.ejs') %>
+        <% } %>
 </div>
