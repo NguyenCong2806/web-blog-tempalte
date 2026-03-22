@@ -1,13 +1,5 @@
 <section class="py-16 bg-slate-900 text-white">
   <div class="container mx-auto px-4">
-    
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold uppercase tracking-wider text-teal-400">
-        Liên hệ & Kết nối
-      </h2>
-      <div class="mt-2 h-1 w-20 bg-gray-600 mx-auto rounded-full"></div>
-    </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       
       <% if (typeof contacts !== 'undefined' && contacts.length > 0) { %>
@@ -17,11 +9,7 @@
             
             <div class="mb-5 relative">
               <div class="w-16 h-16 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center group-hover:border-teal-500 group-hover:bg-teal-900/30 transition-all duration-300">
-                <img 
-                  src="<%= item.icon || '/images/icons/contact-default.png' %>" 
-                  alt="<%= item.title %>" 
-                  class="w-8 h-8 object-contain filter invert opacity-80 group-hover:opacity-100 transition-opacity"
-                >
+                <i class="<%= item.icon || 'fas fa-question-circle' %> w-8 h-8 opacity-80 group-hover:opacity-100 transition-opacity"></i>
               </div>
             </div>
 
@@ -32,7 +20,7 @@
             <% } %>
 
             <% if (item.detail) { %>
-              <div class="text-gray-400 text-sm leading-relaxed mb-4 px-4">
+              <div class="text-gray-400 text-sm leading-relaxed mb-4 px-4 h-[200px] overflow-y-auto">
                 <%- item.detail.replace(/\n/g, '<br>') %>
               </div>
             <% } %>

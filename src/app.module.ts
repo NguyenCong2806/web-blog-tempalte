@@ -38,6 +38,10 @@ import { CoursesService } from './service/courses/Courses.Service';
 import { ICoursesService } from './service/courses/ICourses.Service';
 import { BoxImageTextService } from './service/boxImagetext/BoxImageText.Service';
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
+import { ContactService } from './service/contact/Contact.Service';
+import { IContactService } from './service/contact/IContact.Service';
+import { IExpertService } from './service/expert/IExpert.Service';
+import { ExpertService } from './service/expert/Expert.Service';
 
 @Module({
   imports: [
@@ -100,6 +104,14 @@ import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Servi
     {
       provide: IBoxImageTextService,
       useClass: BoxImageTextService,
+    },
+    {
+      provide: IContactService,
+      useClass: ContactService,
+    },
+    {
+      provide: IExpertService,
+      useClass: ExpertService,
     }
   ],
   exports: [
@@ -108,6 +120,7 @@ import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Servi
     IBoxImageTextService,
     ICardService,
     IAccordionService,
+    IContactService,
   ],
 })
 export class AppModule implements NestModule {

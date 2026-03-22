@@ -21,6 +21,10 @@ import { IModalPopupService } from './service/modalpopup/IModalPopup.Service';
 import { Courses } from './models/viewmodel/courses/Courses';
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 import { BoxImageText } from './models/viewmodel/boxImagetext/BoxImageText';
+import { IContactService } from './service/contact/IContact.Service';
+import { Contact } from './models/viewmodel/contact/Contact';
+import { IExpertService } from './service/expert/IExpert.Service';
+import { Expert } from './models/viewmodel/expert/Expert';
 
 @Controller()
 export class AppController {
@@ -40,11 +44,15 @@ export class AppController {
     private readonly majorsnoteService: IMajorsnoteService,
     @Inject(IModalPopupService)
     private readonly modalPopupService: IModalPopupService,
-    @Inject(ICoursesService) 
+    @Inject(ICoursesService)
     private readonly coursesService: ICoursesService,
     @Inject(IBoxImageTextService)
     private readonly boxImageTextService: IBoxImageTextService,
-  ) {}
+    @Inject(IContactService)
+    private readonly contactService: IContactService,
+    @Inject(IExpertService)
+    private readonly expertService: IExpertService,
+  ) { }
 
   @Get()
   @Render('index')
@@ -95,14 +103,25 @@ export class AppController {
     const modalPopupData = modalPopups.item as ModalPopup[];
     const courses = await this.coursesService.findAll(endpoint.courses, site);
     const coursesData = courses.item as Courses[];
-
+    const contacts = await this.contactService.findAll(
+      endpoint.contact,
+      site,
+    );
+    const contactsData = contacts.item as Contact[];
+    const experts = await this.expertService.findAll(
+      endpoint.expert,
+      site,
+    );
+    const expertsData = experts.item as Expert[];
     return {
       title: 'home',
       currentPath: '/',
       carousels: imageData,
+      contacts: contactsData,
       ///section courses
       articleHeadecourses: headers[0],
       courses: coursesData,
+      experts: expertsData,
       ///section card
       articleHeadercard: headers[1],
       cards: cardData,
@@ -118,7 +137,7 @@ export class AppController {
       ///section majorsnote
       articleHeadermajorsnote: headers[5],
       majorsnotes: majorsnoteData,
-        ///section boximagetext
+      ///section boximagetext
       boximagetexts: boxImageTexts,
       ///section modalpopup
 
