@@ -40,6 +40,8 @@ import { BoxImageTextService } from './service/boxImagetext/BoxImageText.Service
 import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Service';
 import { ContactService } from './service/contact/Contact.Service';
 import { IContactService } from './service/contact/IContact.Service';
+import { IExpertService } from './service/expert/IExpert.Service';
+import { ExpertService } from './service/expert/Expert.Service';
 
 @Module({
   imports: [
@@ -106,6 +108,10 @@ import { IContactService } from './service/contact/IContact.Service';
     {
       provide: IContactService,
       useClass: ContactService,
+    },
+    {
+      provide: IExpertService,
+      useClass: ExpertService,
     }
   ],
   exports: [

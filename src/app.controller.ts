@@ -23,6 +23,8 @@ import { IBoxImageTextService } from './service/boxImagetext/IBoxImageText.Servi
 import { BoxImageText } from './models/viewmodel/boxImagetext/BoxImageText';
 import { IContactService } from './service/contact/IContact.Service';
 import { Contact } from './models/viewmodel/contact/Contact';
+import { IExpertService } from './service/expert/IExpert.Service';
+import { Expert } from './models/viewmodel/expert/Expert';
 
 @Controller()
 export class AppController {
@@ -48,6 +50,8 @@ export class AppController {
     private readonly boxImageTextService: IBoxImageTextService,
     @Inject(IContactService)
     private readonly contactService: IContactService,
+    @Inject(IExpertService)
+    private readonly expertService: IExpertService,
   ) { }
 
   @Get()
@@ -104,6 +108,11 @@ export class AppController {
       site,
     );
     const contactsData = contacts.item as Contact[];
+    const experts = await this.expertService.findAll(
+      endpoint.expert,
+      site,
+    );
+    const expertsData = experts.item as Expert[];
     return {
       title: 'home',
       currentPath: '/',
@@ -112,6 +121,7 @@ export class AppController {
       ///section courses
       articleHeadecourses: headers[0],
       courses: coursesData,
+      experts: expertsData,
       ///section card
       articleHeadercard: headers[1],
       cards: cardData,
