@@ -25,6 +25,8 @@ import { IContactService } from './service/contact/IContact.Service';
 import { Contact } from './models/viewmodel/contact/Contact';
 import { IExpertService } from './service/expert/IExpert.Service';
 import { Expert } from './models/viewmodel/expert/Expert';
+import { IImageListInfoService } from './service/imagelistInfo/IImagelistInfo.Service';
+import { ImageListInfo } from './models/viewmodel/imagelistInfo/ImageListInfo';
 
 @Controller()
 export class AppController {
@@ -52,6 +54,8 @@ export class AppController {
     private readonly contactService: IContactService,
     @Inject(IExpertService)
     private readonly expertService: IExpertService,
+    @Inject(IImageListInfoService)
+    private readonly imageListInfoService: IImageListInfoService,
   ) { }
 
   @Get()
@@ -112,7 +116,12 @@ export class AppController {
       endpoint.expert,
       site,
     );
+     const imageListInfos = await this.imageListInfoService.findAll(
+      endpoint.imagelistinfo,
+      site,
+    );
     const expertsData = experts.item as Expert[];
+    const imageListInfosData = imageListInfos.item as ImageListInfo[];
     return {
       title: 'home',
       currentPath: '/',
@@ -142,6 +151,8 @@ export class AppController {
       ///section modalpopup
 
       modalPopups: modalPopupData,
+      ///section imagelistinfo
+      imageListInfos: imageListInfosData,
     };
   }
 }

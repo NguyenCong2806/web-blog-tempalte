@@ -42,6 +42,8 @@ import { ContactService } from './service/contact/Contact.Service';
 import { IContactService } from './service/contact/IContact.Service';
 import { IExpertService } from './service/expert/IExpert.Service';
 import { ExpertService } from './service/expert/Expert.Service';
+import { IImageListInfoService } from './service/imagelistInfo/IImagelistInfo.Service';
+import { ImageListInfoService } from './service/imagelistInfo/ImagelistInfo.Service';
 
 @Module({
   imports: [
@@ -112,6 +114,10 @@ import { ExpertService } from './service/expert/Expert.Service';
     {
       provide: IExpertService,
       useClass: ExpertService,
+    },
+    {
+      provide: IImageListInfoService,
+      useClass: ImageListInfoService,
     }
   ],
   exports: [
